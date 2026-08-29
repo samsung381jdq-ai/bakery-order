@@ -1,0 +1,2408 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+  >
+
+  <title>烘焙線上訂購</title>
+
+  <style>
+    :root{
+      --bg:#f8f3ed;
+      --card:#ffffff;
+      --brown:#69402a;
+      --brown2:#9b6038;
+      --brown3:#b7774e;
+      --text:#49362b;
+      --muted:#92796a;
+      --price:#bd6534;
+      --border:#ead8ca;
+      --tab:#eadfd5;
+      --danger:#c34c43;
+      --success:#4f7d59;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html,
+    body{
+      margin:0;
+      padding:0;
+      min-height:100%;
+    }
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:
+        "Microsoft JhengHei",
+        "Noto Sans TC",
+        Arial,
+        sans-serif;
+      padding-bottom:95px;
+    }
+
+    button,
+    select,
+    textarea{
+      font-family:inherit;
+    }
+
+    button{
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:760px;
+      margin:0 auto;
+    }
+
+    /* =========================
+       Header
+       ========================= */
+
+    .header{
+      padding:20px 20px 12px;
+      text-align:center;
+    }
+
+    .logo{
+      font-size:48px;
+      line-height:1;
+    }
+
+    .title{
+      margin-top:7px;
+      color:var(--brown);
+      font-size:29px;
+      font-weight:900;
+    }
+
+    .subtitle{
+      margin-top:7px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.6;
+    }
+
+    /* =========================
+       Tabs
+       ========================= */
+
+    .tabs{
+      display:flex;
+      margin:8px 18px 17px;
+      padding:5px;
+      background:var(--tab);
+      border-radius:16px;
+    }
+
+    .tab{
+      flex:1;
+      height:48px;
+      border:0;
+      border-radius:12px;
+      background:transparent;
+      color:#785845;
+      font-size:16px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .tab.active{
+      background:#fff;
+      color:var(--brown);
+      box-shadow:0 2px 7px rgba(83,45,25,.10);
+    }
+
+    /* =========================
+       Card
+       ========================= */
+
+    .card{
+      margin:0 18px 17px;
+      padding:18px;
+      background:var(--card);
+      border-radius:18px;
+      box-shadow:0 7px 22px rgba(97,57,35,.08);
+    }
+
+    .section-title{
+      margin-bottom:18px;
+      color:var(--brown);
+      font-size:20px;
+      font-weight:900;
+    }
+
+    /* =========================
+       Fields
+       ========================= */
+
+    .field{
+      margin-bottom:17px;
+    }
+
+    .field:last-child{
+      margin-bottom:0;
+    }
+
+    label{
+      display:block;
+      margin-bottom:8px;
+      color:#5e402d;
+      font-size:15px;
+      font-weight:900;
+    }
+
+    .required{
+      color:var(--danger);
+    }
+
+    select,
+    textarea{
+      width:100%;
+      border:1px solid #dbc1b1;
+      border-radius:11px;
+      background:#fffdfb;
+      color:#49362b;
+      font-size:16px;
+      outline:none;
+    }
+
+    select{
+      height:48px;
+      padding:0 13px;
+    }
+
+    textarea{
+      min-height:82px;
+      padding:13px;
+      resize:vertical;
+    }
+
+    select:focus,
+    textarea:focus{
+      border-color:var(--brown3);
+    }
+
+    /* =========================
+       Products
+       ========================= */
+
+    .product-title{
+      margin-bottom:13px;
+      color:var(--brown);
+      font-size:19px;
+      font-weight:900;
+    }
+
+    .product{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      min-height:76px;
+      margin-bottom:10px;
+      padding:12px 11px 12px 13px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:#fff;
+    }
+
+    .product:last-child{
+      margin-bottom:0;
+    }
+
+    .product-info{
+      min-width:0;
+      padding-right:12px;
+    }
+
+    .product-name{
+      font-size:16px;
+      font-weight:900;
+      word-break:break-word;
+    }
+
+    .product-price{
+      margin-top:5px;
+      color:var(--price);
+      font-size:15px;
+      font-weight:900;
+    }
+
+    .qty-box{
+      display:flex;
+      align-items:center;
+      gap:9px;
+      flex-shrink:0;
+    }
+
+    .qty-btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:38px;
+      height:38px;
+      padding:0;
+      border:0;
+      border-radius:50%;
+      background:var(--brown2);
+      color:white;
+      font-size:24px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .qty-btn:active{
+      transform:scale(.95);
+    }
+
+    .qty-number{
+      min-width:28px;
+      text-align:center;
+      font-size:18px;
+      font-weight:900;
+    }
+
+    /* =========================
+       Clear
+       ========================= */
+
+    .clear-wrap{
+      margin:5px 18px 25px;
+    }
+
+    .clear-btn{
+      width:100%;
+      height:50px;
+      border:0;
+      border-radius:12px;
+      background:#eee3da;
+      color:#67412b;
+      font-size:16px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    /* =========================
+       Bottom bar
+       ========================= */
+
+    .bottom{
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      z-index:100;
+      padding:9px 10px calc(9px + env(safe-area-inset-bottom));
+      background:white;
+      border-top:1px solid #e1d3c9;
+      box-shadow:0 -3px 14px rgba(0,0,0,.05);
+    }
+
+    .bottom-inner{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      max-width:760px;
+      margin:auto;
+    }
+
+    .total{
+      flex:1;
+    }
+
+    .total-count{
+      color:#88766b;
+      font-size:13px;
+    }
+
+    .total-money{
+      margin-top:2px;
+      color:var(--brown2);
+      font-size:23px;
+      font-weight:900;
+    }
+
+    .submit-btn{
+      width:155px;
+      height:51px;
+      border:0;
+      border-radius:12px;
+      background:var(--brown2);
+      color:white;
+      font-size:17px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .submit-btn:disabled{
+      opacity:.5;
+      cursor:not-allowed;
+    }
+
+    /* =========================
+       Search
+       ========================= */
+
+    #searchPage{
+      display:none;
+    }
+
+    .search-btn{
+      width:100%;
+      height:49px;
+      border:0;
+      border-radius:11px;
+      background:var(--brown2);
+      color:white;
+      font-size:17px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .search-results{
+      margin-top:17px;
+    }
+
+    .order-card{
+      margin-bottom:13px;
+      padding:15px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:#fffaf7;
+    }
+
+    .order-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:11px;
+    }
+
+    .order-customer{
+      color:#6f4a35;
+      font-size:14px;
+      font-weight:900;
+      margin-bottom:3px;
+    }
+
+    .order-date{
+      color:var(--brown);
+      font-weight:900;
+    }
+
+    .order-total{
+      color:var(--price);
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+    .order-item{
+      display:flex;
+      justify-content:space-between;
+      gap:15px;
+      padding:7px 0;
+      border-bottom:1px dashed #eadbd1;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .order-item:last-child{
+      border-bottom:0;
+    }
+
+    .order-note{
+      margin-top:10px;
+      color:#7c675a;
+      font-size:13px;
+      line-height:1.6;
+      word-break:break-word;
+    }
+
+    .order-summary{
+      margin-top:10px;
+      text-align:right;
+      color:#68442e;
+      font-weight:900;
+    }
+
+    .empty{
+      padding:30px 5px;
+      text-align:center;
+      color:#967b6a;
+    }
+
+    /* =========================
+       Loading
+       ========================= */
+
+    .loading{
+      display:none;
+      position:fixed;
+      inset:0;
+      z-index:500;
+      align-items:center;
+      justify-content:center;
+      background:rgba(255,255,255,.82);
+    }
+
+    .loading.show{
+      display:flex;
+    }
+
+    .loading-box{
+      padding:19px 29px;
+      border-radius:15px;
+      background:white;
+      color:var(--brown);
+      font-weight:900;
+      box-shadow:0 6px 26px rgba(0,0,0,.15);
+    }
+
+    /* =========================
+       Success modal
+       ========================= */
+
+    .modal{
+      display:none;
+      position:fixed;
+      inset:0;
+      z-index:600;
+      align-items:center;
+      justify-content:center;
+      padding:25px;
+      background:rgba(0,0,0,.36);
+    }
+
+    .modal.show{
+      display:flex;
+    }
+
+    .modal-box{
+      width:100%;
+      max-width:365px;
+      padding:25px 20px 20px;
+      border-radius:19px;
+      background:white;
+      text-align:center;
+    }
+
+    .modal-icon{
+      font-size:52px;
+    }
+
+    .modal-title{
+      margin-top:5px;
+      color:var(--brown);
+      font-size:23px;
+      font-weight:900;
+    }
+
+    .modal-text{
+      margin-top:11px;
+      color:#735d50;
+      line-height:1.9;
+    }
+
+    .modal-btn{
+      width:100%;
+      height:48px;
+      margin-top:19px;
+      border:0;
+      border-radius:11px;
+      background:var(--brown2);
+      color:white;
+      font-size:16px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    /* =========================
+       System message
+       ========================= */
+
+    .system-message{
+      margin:0 18px 15px;
+      padding:12px 14px;
+      border-radius:12px;
+      background:#fff8f3;
+      color:#7a5138;
+      border:1px solid #ead5c7;
+      font-size:14px;
+      line-height:1.6;
+    }
+
+    .system-message.error{
+      background:#fff1f0;
+      color:#934a43;
+      border-color:#efc8c4;
+    }
+
+    /* =========================
+       Mobile
+       ========================= */
+
+    @media(max-width:480px){
+
+      .header{
+        padding-top:16px;
+      }
+
+      .logo{
+        font-size:43px;
+      }
+
+      .title{
+        font-size:27px;
+      }
+
+      .tabs{
+        margin-left:14px;
+        margin-right:14px;
+      }
+
+      .card{
+        margin-left:14px;
+        margin-right:14px;
+      }
+
+      .clear-wrap{
+        margin-left:14px;
+        margin-right:14px;
+      }
+
+      .system-message{
+        margin-left:14px;
+        margin-right:14px;
+      }
+
+      .submit-btn{
+        width:145px;
+      }
+
+      .product{
+        padding-left:11px;
+      }
+
+      .product-name{
+        font-size:15px;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <div class="wrap">
+
+    <div class="header">
+
+      <div class="logo">
+        🍞
+      </div>
+
+      <div class="title">
+        烘焙線上訂購
+      </div>
+
+      <div class="subtitle">
+        選擇訂購人、日期及商品即可完成訂購
+      </div>
+
+    </div>
+
+
+    <div class="tabs">
+
+      <button
+        id="orderTab"
+        class="tab active"
+        type="button"
+        onclick="showOrder()"
+      >
+        我要訂購
+      </button>
+
+      <button
+        id="searchTab"
+        class="tab"
+        type="button"
+        onclick="showSearch()"
+      >
+        查詢訂單
+      </button>
+
+    </div>
+
+
+    <div
+      id="systemMessage"
+      class="system-message"
+      style="display:none;"
+    ></div>
+
+
+    <!-- 我要訂購 -->
+    <div id="orderPage">
+
+      <div class="card">
+
+        <div class="section-title">
+          訂購資料
+        </div>
+
+        <div class="field">
+
+          <label for="customer">
+            訂購人
+            <span class="required">*</span>
+          </label>
+
+          <select id="customer">
+
+            <option value="">
+              請選擇訂購人
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="orderDate">
+            訂購日期
+            <span class="required">*</span>
+          </label>
+
+          <select id="orderDate">
+
+            <option value="">
+              請選擇訂購日期
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="note">
+            備註
+          </label>
+
+          <textarea
+            id="note"
+            maxlength="300"
+            placeholder="如有其他需求可填寫"
+          ></textarea>
+
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="product-title">
+          選擇商品
+        </div>
+
+        <div id="products"></div>
+
+      </div>
+
+
+      <div class="clear-wrap">
+
+        <button
+          class="clear-btn"
+          type="button"
+          onclick="clearAll()"
+        >
+          清除全部
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- 查詢訂單 -->
+    <div id="searchPage">
+
+      <div class="card">
+
+        <div class="section-title">
+          查詢訂單
+        </div>
+
+
+        <div class="field">
+
+          <label for="searchCustomer">
+            訂購人
+          </label>
+
+          <select id="searchCustomer">
+
+            <option value="">
+              請選擇訂購人
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="searchDate">
+            訂購日期
+          </label>
+
+          <select id="searchDate">
+
+            <option value="">
+              全部日期
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <button
+          class="search-btn"
+          type="button"
+          onclick="searchOrdersNow()"
+        >
+          查詢訂單
+        </button>
+
+
+        <div
+          id="searchResults"
+          class="search-results"
+        ></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- 底部總金額 -->
+  <div
+    id="bottomBar"
+    class="bottom"
+  >
+
+    <div class="bottom-inner">
+
+      <div class="total">
+
+        <div
+          id="totalCount"
+          class="total-count"
+        >
+          共 0 件
+        </div>
+
+        <div
+          id="totalMoney"
+          class="total-money"
+        >
+          NT$ 0
+        </div>
+
+      </div>
+
+
+      <button
+        id="submitBtn"
+        class="submit-btn"
+        type="button"
+        onclick="submitOrderNow()"
+      >
+        送出訂單
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- Loading -->
+  <div
+    id="loading"
+    class="loading"
+  >
+
+    <div class="loading-box">
+      處理中...
+    </div>
+
+  </div>
+
+
+  <!-- 成功 Modal -->
+  <div
+    id="successModal"
+    class="modal"
+  >
+
+    <div class="modal-box">
+
+      <div class="modal-icon">
+        ✅
+      </div>
+
+      <div class="modal-title">
+        訂購成功
+      </div>
+
+      <div
+        id="successText"
+        class="modal-text"
+      ></div>
+
+      <button
+        class="modal-btn"
+        type="button"
+        onclick="closeSuccess()"
+      >
+        完成
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /************************************************
+     * ★ Apps Script API
+     ************************************************/
+    const API_URL =
+      'https://script.google.com/macros/s/AKfycbzO6FbsyJ0D44gVvcBluRHW_u5jzlcxtAPqUei7HV439eeBzLZHb373dzWqX7pBJfyF/exec';
+
+
+    let products = [];
+
+    let quantities = {};
+
+
+    /************************************************
+     * ★ JSONP API
+     * GitHub Pages → Apps Script
+     ************************************************/
+    function api(
+      action,
+      params = {}
+    ){
+
+      return new Promise(
+        function(resolve, reject){
+
+          const callbackName =
+            '__bakery_cb_' +
+            Date.now() +
+            '_' +
+            Math.floor(
+              Math.random() * 1000000
+            );
+
+
+          const script =
+            document.createElement(
+              'script'
+            );
+
+
+          let finished =
+            false;
+
+
+          const timer =
+            setTimeout(
+              function(){
+
+                if(finished){
+                  return;
+                }
+
+                finished = true;
+
+                cleanup();
+
+                reject(
+                  new Error(
+                    '連線逾時，請稍後再試'
+                  )
+                );
+
+              },
+              25000
+            );
+
+
+          function cleanup(){
+
+            clearTimeout(
+              timer
+            );
+
+
+            if(
+              script.parentNode
+            ){
+
+              script.parentNode.removeChild(
+                script
+              );
+            }
+
+
+            try{
+
+              delete window[
+                callbackName
+              ];
+
+            }
+            catch(error){
+
+              window[
+                callbackName
+              ] = undefined;
+            }
+          }
+
+
+          window[
+            callbackName
+          ] =
+            function(result){
+
+              if(finished){
+                return;
+              }
+
+              finished = true;
+
+              cleanup();
+
+
+              if(
+                !result
+              ){
+
+                reject(
+                  new Error(
+                    '伺服器沒有回傳資料'
+                  )
+                );
+
+                return;
+              }
+
+
+              if(
+                result.success === false
+              ){
+
+                reject(
+                  new Error(
+                    result.message ||
+                    '系統發生錯誤'
+                  )
+                );
+
+                return;
+              }
+
+
+              resolve(
+                result
+              );
+            };
+
+
+          const query =
+            new URLSearchParams();
+
+
+          query.set(
+            'action',
+            action
+          );
+
+
+          query.set(
+            'callback',
+            callbackName
+          );
+
+
+          query.set(
+            '_',
+            Date.now()
+          );
+
+
+          Object.keys(
+            params
+          ).forEach(
+            function(key){
+
+              const value =
+                params[
+                  key
+                ];
+
+
+              if(
+                value === undefined ||
+                value === null
+              ){
+
+                return;
+              }
+
+
+              query.set(
+                key,
+                String(
+                  value
+                )
+              );
+            }
+          );
+
+
+          script.onerror =
+            function(){
+
+              if(finished){
+                return;
+              }
+
+              finished = true;
+
+              cleanup();
+
+
+              reject(
+                new Error(
+                  '目前無法連線到訂單系統，請稍後再試'
+                )
+              );
+            };
+
+
+          script.src =
+            API_URL +
+            '?' +
+            query.toString();
+
+
+          document.body.appendChild(
+            script
+          );
+        }
+      );
+    }
+
+
+    /************************************************
+     * ★ 啟動
+     ************************************************/
+    document.addEventListener(
+      'DOMContentLoaded',
+      function(){
+
+        loadInitialData();
+
+      }
+    );
+
+
+    /************************************************
+     * ★ 初始資料
+     ************************************************/
+    async function loadInitialData(){
+
+      showLoading(
+        true
+      );
+
+
+      hideSystemMessage();
+
+
+      try{
+
+        const data =
+          await api(
+            'initial'
+          );
+
+
+        products =
+          Array.isArray(
+            data.products
+          )
+            ? data.products
+            : [];
+
+
+        fillCustomers(
+          Array.isArray(
+            data.customers
+          )
+            ? data.customers
+            : []
+        );
+
+
+        fillDates(
+          Array.isArray(
+            data.dates
+          )
+            ? data.dates
+            : []
+        );
+
+
+        renderProducts();
+
+
+        updateTotal();
+
+
+        if(
+          !data.dates ||
+          data.dates.length === 0
+        ){
+
+          showSystemMessage(
+            '目前沒有可訂購日期，請聯絡管理人員更新「日期設定」。',
+            false
+          );
+        }
+
+      }
+      catch(error){
+
+        showSystemMessage(
+          '目前無法連線到訂單系統：' +
+          error.message,
+          true
+        );
+
+
+        alert(
+          '目前無法連線到訂單系統。\n\n' +
+          error.message
+        );
+
+      }
+      finally{
+
+        showLoading(
+          false
+        );
+      }
+    }
+
+
+    /************************************************
+     * ★ 填訂購人
+     ************************************************/
+    function fillCustomers(
+      customers
+    ){
+
+      const customer =
+        document.getElementById(
+          'customer'
+        );
+
+
+      const searchCustomer =
+        document.getElementById(
+          'searchCustomer'
+        );
+
+
+      customer.innerHTML =
+        '<option value="">請選擇訂購人</option>';
+
+
+      searchCustomer.innerHTML =
+        '<option value="">請選擇訂購人</option>';
+
+
+      customers.forEach(
+        function(name){
+
+          customer.add(
+            new Option(
+              name,
+              name
+            )
+          );
+
+
+          searchCustomer.add(
+            new Option(
+              name,
+              name
+            )
+          );
+        }
+      );
+    }
+
+
+    /************************************************
+     * ★ 填日期
+     ************************************************/
+    function fillDates(
+      dates
+    ){
+
+      const orderDate =
+        document.getElementById(
+          'orderDate'
+        );
+
+
+      const searchDate =
+        document.getElementById(
+          'searchDate'
+        );
+
+
+      orderDate.innerHTML =
+        '<option value="">請選擇訂購日期</option>';
+
+
+      searchDate.innerHTML =
+        '<option value="">全部日期</option>';
+
+
+      dates.forEach(
+        function(date){
+
+          orderDate.add(
+            new Option(
+              date,
+              date
+            )
+          );
+
+
+          searchDate.add(
+            new Option(
+              date,
+              date
+            )
+          );
+        }
+      );
+    }
+
+
+    /************************************************
+     * ★ 商品
+     ************************************************/
+    function renderProducts(){
+
+      const box =
+        document.getElementById(
+          'products'
+        );
+
+
+      box.innerHTML =
+        '';
+
+
+      quantities =
+        {};
+
+
+      products.forEach(
+        function(
+          product,
+          index
+        ){
+
+          quantities[
+            product.name
+          ] = 0;
+
+
+          const row =
+            document.createElement(
+              'div'
+            );
+
+
+          row.className =
+            'product';
+
+
+          const info =
+            document.createElement(
+              'div'
+            );
+
+
+          info.className =
+            'product-info';
+
+
+          const name =
+            document.createElement(
+              'div'
+            );
+
+
+          name.className =
+            'product-name';
+
+
+          name.textContent =
+            product.name;
+
+
+          const price =
+            document.createElement(
+              'div'
+            );
+
+
+          price.className =
+            'product-price';
+
+
+          price.textContent =
+            'NT$ ' +
+            money(
+              product.price
+            );
+
+
+          info.appendChild(
+            name
+          );
+
+
+          info.appendChild(
+            price
+          );
+
+
+          const qtyBox =
+            document.createElement(
+              'div'
+            );
+
+
+          qtyBox.className =
+            'qty-box';
+
+
+          const minus =
+            document.createElement(
+              'button'
+            );
+
+
+          minus.type =
+            'button';
+
+
+          minus.className =
+            'qty-btn';
+
+
+          minus.textContent =
+            '−';
+
+
+          minus.setAttribute(
+            'aria-label',
+            product.name +
+            ' 減少'
+          );
+
+
+          minus.onclick =
+            function(){
+
+              changeQty(
+                product.name,
+                -1
+              );
+            };
+
+
+          const number =
+            document.createElement(
+              'div'
+            );
+
+
+          number.className =
+            'qty-number';
+
+
+          number.id =
+            'qty-' +
+            index;
+
+
+          number.textContent =
+            '0';
+
+
+          const plus =
+            document.createElement(
+              'button'
+            );
+
+
+          plus.type =
+            'button';
+
+
+          plus.className =
+            'qty-btn';
+
+
+          plus.textContent =
+            '+';
+
+
+          plus.setAttribute(
+            'aria-label',
+            product.name +
+            ' 增加'
+          );
+
+
+          plus.onclick =
+            function(){
+
+              changeQty(
+                product.name,
+                1
+              );
+            };
+
+
+          qtyBox.appendChild(
+            minus
+          );
+
+
+          qtyBox.appendChild(
+            number
+          );
+
+
+          qtyBox.appendChild(
+            plus
+          );
+
+
+          row.appendChild(
+            info
+          );
+
+
+          row.appendChild(
+            qtyBox
+          );
+
+
+          box.appendChild(
+            row
+          );
+        }
+      );
+    }
+
+
+    /************************************************
+     * ★ 改變數量
+     ************************************************/
+    function changeQty(
+      name,
+      amount
+    ){
+
+      let qty =
+        Number(
+          quantities[
+            name
+          ] || 0
+        );
+
+
+      qty +=
+        amount;
+
+
+      if(
+        qty < 0
+      ){
+
+        qty = 0;
+      }
+
+
+      if(
+        qty > 999
+      ){
+
+        qty = 999;
+      }
+
+
+      quantities[
+        name
+      ] =
+        qty;
+
+
+      const index =
+        products.findIndex(
+          function(product){
+
+            return (
+              product.name ===
+              name
+            );
+          }
+        );
+
+
+      if(
+        index >= 0
+      ){
+
+        const element =
+          document.getElementById(
+            'qty-' +
+            index
+          );
+
+
+        if(
+          element
+        ){
+
+          element.textContent =
+            qty;
+        }
+      }
+
+
+      updateTotal();
+    }
+
+
+    /************************************************
+     * ★ 更新總計
+     ************************************************/
+    function updateTotal(){
+
+      let totalQty =
+        0;
+
+
+      let totalAmount =
+        0;
+
+
+      products.forEach(
+        function(product){
+
+          const qty =
+            Number(
+              quantities[
+                product.name
+              ] || 0
+            );
+
+
+          totalQty +=
+            qty;
+
+
+          totalAmount +=
+            qty *
+            Number(
+              product.price || 0
+            );
+        }
+      );
+
+
+      document
+        .getElementById(
+          'totalCount'
+        )
+        .textContent =
+          '共 ' +
+          totalQty +
+          ' 件';
+
+
+      document
+        .getElementById(
+          'totalMoney'
+        )
+        .textContent =
+          'NT$ ' +
+          money(
+            totalAmount
+          );
+    }
+
+
+    /************************************************
+     * ★ 清除全部
+     ************************************************/
+    function clearAll(){
+
+      products.forEach(
+        function(
+          product,
+          index
+        ){
+
+          quantities[
+            product.name
+          ] = 0;
+
+
+          const element =
+            document.getElementById(
+              'qty-' +
+              index
+            );
+
+
+          if(
+            element
+          ){
+
+            element.textContent =
+              '0';
+          }
+        }
+      );
+
+
+      updateTotal();
+    }
+
+
+    /************************************************
+     * ★ 下單
+     ************************************************/
+    async function submitOrderNow(){
+
+      const customer =
+        document
+          .getElementById(
+            'customer'
+          )
+          .value;
+
+
+      const orderDate =
+        document
+          .getElementById(
+            'orderDate'
+          )
+          .value;
+
+
+      const note =
+        document
+          .getElementById(
+            'note'
+          )
+          .value
+          .trim();
+
+
+      if(
+        !customer
+      ){
+
+        alert(
+          '請選擇訂購人'
+        );
+
+        return;
+      }
+
+
+      if(
+        !orderDate
+      ){
+
+        alert(
+          '請選擇訂購日期'
+        );
+
+        return;
+      }
+
+
+      let totalQty =
+        0;
+
+
+      products.forEach(
+        function(product){
+
+          totalQty +=
+            Number(
+              quantities[
+                product.name
+              ] || 0
+            );
+        }
+      );
+
+
+      if(
+        totalQty <= 0
+      ){
+
+        alert(
+          '請至少選擇一項商品'
+        );
+
+        return;
+      }
+
+
+      const submitBtn =
+        document.getElementById(
+          'submitBtn'
+        );
+
+
+      submitBtn.disabled =
+        true;
+
+
+      submitBtn.textContent =
+        '送出中...';
+
+
+      showLoading(
+        true
+      );
+
+
+      try{
+
+        const params = {
+          customer:
+            customer,
+
+          orderDate:
+            orderDate,
+
+          note:
+            note,
+
+          requestId:
+            createRequestId()
+        };
+
+
+        products.forEach(
+          function(
+            product,
+            index
+          ){
+
+            params[
+              'q' +
+              index
+            ] =
+              Number(
+                quantities[
+                  product.name
+                ] || 0
+              );
+          }
+        );
+
+
+        const result =
+          await api(
+            'submit',
+            params
+          );
+
+
+        document
+          .getElementById(
+            'successText'
+          )
+          .innerHTML =
+
+            '訂購人：<b>' +
+            escapeHtml(
+              result.customer
+            ) +
+            '</b><br>' +
+
+            '訂購日期：<b>' +
+            escapeHtml(
+              result.orderDate
+            ) +
+            '</b><br>' +
+
+            '共 <b>' +
+            Number(
+              result.totalQty || 0
+            ) +
+            '</b> 件<br>' +
+
+            '總金額：<b>NT$ ' +
+            money(
+              result.totalAmount
+            ) +
+            '</b>';
+
+
+        document
+          .getElementById(
+            'successModal'
+          )
+          .classList.add(
+            'show'
+          );
+
+
+        clearAll();
+
+
+        document
+          .getElementById(
+            'note'
+          )
+          .value =
+            '';
+
+
+      }
+      catch(error){
+
+        alert(
+          '訂單送出失敗。\n\n' +
+          error.message
+        );
+
+      }
+      finally{
+
+        submitBtn.disabled =
+          false;
+
+
+        submitBtn.textContent =
+          '送出訂單';
+
+
+        showLoading(
+          false
+        );
+      }
+    }
+
+
+    /************************************************
+     * ★ 查詢訂單
+     ************************************************/
+    async function searchOrdersNow(){
+
+      const customer =
+        document
+          .getElementById(
+            'searchCustomer'
+          )
+          .value;
+
+
+      const orderDate =
+        document
+          .getElementById(
+            'searchDate'
+          )
+          .value;
+
+
+      if(
+        !customer
+      ){
+
+        alert(
+          '請選擇訂購人'
+        );
+
+        return;
+      }
+
+
+      const box =
+        document.getElementById(
+          'searchResults'
+        );
+
+
+      box.innerHTML =
+        '<div class="empty">查詢中...</div>';
+
+
+      try{
+
+        const result =
+          await api(
+            'search',
+            {
+              customer:
+                customer,
+
+              orderDate:
+                orderDate
+            }
+          );
+
+
+        renderSearchResults(
+          Array.isArray(
+            result.orders
+          )
+            ? result.orders
+            : []
+        );
+
+      }
+      catch(error){
+
+        box.innerHTML =
+          '<div class="empty">查詢失敗</div>';
+
+
+        alert(
+          '查詢失敗。\n\n' +
+          error.message
+        );
+      }
+    }
+
+
+    /************************************************
+     * ★ 顯示查詢結果
+     ************************************************/
+    function renderSearchResults(
+      results
+    ){
+
+      const box =
+        document.getElementById(
+          'searchResults'
+        );
+
+
+      if(
+        !results.length
+      ){
+
+        box.innerHTML =
+          '<div class="empty">查無訂單</div>';
+
+        return;
+      }
+
+
+      box.innerHTML =
+        results
+          .map(
+            function(order){
+
+              const items =
+                Array.isArray(
+                  order.items
+                )
+                  ? order.items
+                  : [];
+
+
+              const itemsHtml =
+                items
+                  .map(
+                    function(item){
+
+                      return `
+                        <div class="order-item">
+
+                          <div>
+                            ${escapeHtml(item.name)}
+                            ×
+                            ${Number(item.qty || 0)}
+                          </div>
+
+                          <div>
+                            NT$ ${money(item.amount)}
+                          </div>
+
+                        </div>
+                      `;
+                    }
+                  )
+                  .join(
+                    ''
+                  );
+
+
+              const noteHtml =
+                order.note
+                  ? `
+                    <div class="order-note">
+                      備註：
+                      ${escapeHtml(order.note)}
+                    </div>
+                  `
+                  : '';
+
+
+              return `
+                <div class="order-card">
+
+                  <div class="order-head">
+
+                    <div>
+
+                      <div class="order-customer">
+                        ${escapeHtml(order.customer || '')}
+                      </div>
+
+                      <div class="order-date">
+                        ${escapeHtml(order.orderDate || '')}
+                      </div>
+
+                    </div>
+
+                    <div class="order-total">
+                      NT$ ${money(order.totalAmount)}
+                    </div>
+
+                  </div>
+
+                  ${itemsHtml}
+
+                  <div class="order-summary">
+                    共 ${Number(order.totalQty || 0)} 件
+                  </div>
+
+                  ${noteHtml}
+
+                </div>
+              `;
+            }
+          )
+          .join(
+            ''
+          );
+    }
+
+
+    /************************************************
+     * ★ 切換到我要訂購
+     ************************************************/
+    function showOrder(){
+
+      document
+        .getElementById(
+          'orderPage'
+        )
+        .style.display =
+          'block';
+
+
+      document
+        .getElementById(
+          'searchPage'
+        )
+        .style.display =
+          'none';
+
+
+      document
+        .getElementById(
+          'bottomBar'
+        )
+        .style.display =
+          'block';
+
+
+      document
+        .getElementById(
+          'orderTab'
+        )
+        .classList.add(
+          'active'
+        );
+
+
+      document
+        .getElementById(
+          'searchTab'
+        )
+        .classList.remove(
+          'active'
+        );
+    }
+
+
+    /************************************************
+     * ★ 切換到查詢訂單
+     ************************************************/
+    function showSearch(){
+
+      document
+        .getElementById(
+          'orderPage'
+        )
+        .style.display =
+          'none';
+
+
+      document
+        .getElementById(
+          'searchPage'
+        )
+        .style.display =
+          'block';
+
+
+      document
+        .getElementById(
+          'bottomBar'
+        )
+        .style.display =
+          'none';
+
+
+      document
+        .getElementById(
+          'searchTab'
+        )
+        .classList.add(
+          'active'
+        );
+
+
+      document
+        .getElementById(
+          'orderTab'
+        )
+        .classList.remove(
+          'active'
+        );
+    }
+
+
+    /************************************************
+     * ★ 成功視窗
+     ************************************************/
+    function closeSuccess(){
+
+      document
+        .getElementById(
+          'successModal'
+        )
+        .classList.remove(
+          'show'
+        );
+    }
+
+
+    /************************************************
+     * ★ Loading
+     ************************************************/
+    function showLoading(
+      show
+    ){
+
+      document
+        .getElementById(
+          'loading'
+        )
+        .classList.toggle(
+          'show',
+          show
+        );
+    }
+
+
+    /************************************************
+     * ★ 系統訊息
+     ************************************************/
+    function showSystemMessage(
+      message,
+      isError
+    ){
+
+      const box =
+        document.getElementById(
+          'systemMessage'
+        );
+
+
+      box.textContent =
+        message;
+
+
+      box.style.display =
+        'block';
+
+
+      box.classList.toggle(
+        'error',
+        !!isError
+      );
+    }
+
+
+    function hideSystemMessage(){
+
+      const box =
+        document.getElementById(
+          'systemMessage'
+        );
+
+
+      box.style.display =
+        'none';
+
+
+      box.classList.remove(
+        'error'
+      );
+    }
+
+
+    /************************************************
+     * ★ 金額格式
+     ************************************************/
+    function money(
+      value
+    ){
+
+      return Number(
+        value || 0
+      )
+      .toLocaleString(
+        'zh-TW'
+      );
+    }
+
+
+    /************************************************
+     * ★ 防 HTML
+     ************************************************/
+    function escapeHtml(
+      text
+    ){
+
+      return String(
+        text || ''
+      )
+      .replace(
+        /&/g,
+        '&amp;'
+      )
+      .replace(
+        /</g,
+        '&lt;'
+      )
+      .replace(
+        />/g,
+        '&gt;'
+      )
+      .replace(
+        /"/g,
+        '&quot;'
+      )
+      .replace(
+        /'/g,
+        '&#039;'
+      );
+    }
+
+
+    /************************************************
+     * ★ 防重複訂單 ID
+     ************************************************/
+    function createRequestId(){
+
+      if(
+        window.crypto &&
+        typeof window.crypto.randomUUID ===
+        'function'
+      ){
+
+        return window.crypto.randomUUID();
+      }
+
+
+      return (
+        Date.now() +
+        '_' +
+        Math.random()
+          .toString(
+            36
+          )
+          .substring(
+            2,
+            12
+          )
+      );
+    }
+
+  </script>
+
+</body>
+</html>
