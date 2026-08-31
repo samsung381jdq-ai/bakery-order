@@ -10,8 +10,7 @@
   content="width=device-width, initial-scale=1, maximum-scale=1"
 >
 
-<title>烘焙線上訂購</title>
-
+<title>桃園區農會｜烘焙線上訂購</title>
 
 <style>
 
@@ -34,7 +33,6 @@ body {
 }
 
 .container {
-
   width: 100%;
   max-width: 720px;
 
@@ -44,28 +42,49 @@ body {
     15px
     12px
     125px;
-
 }
 
-.header {
 
+/* =========================================================
+   桃園區農會 LOGO / 標題
+   ========================================================= */
+
+.header {
   text-align: center;
 
   padding:
-    22px
+    18px
     5px
     18px;
-
 }
 
-.header-icon {
+.header-logo {
+  width: 90px;
+  height: 90px;
 
-  font-size: 48px;
+  object-fit: contain;
 
+  display: block;
+
+  margin:
+    0
+    auto
+    8px;
+}
+
+.farmers-name {
+  margin-bottom: 4px;
+
+  color: #078443;
+
+  font-size: 17px;
+
+  font-weight: 900;
+
+  letter-spacing: 2px;
 }
 
 .header h1 {
-
   margin:
     4px
     0;
@@ -73,19 +92,22 @@ body {
   font-size: 28px;
 
   color: #704a32;
-
 }
 
 .header p {
+  margin-top: 7px;
 
   color: #927866;
 
   font-size: 14px;
-
 }
 
-.tabs {
 
+/* =========================================================
+   頁籤
+   ========================================================= */
+
+.tabs {
   display: flex;
 
   background: #eadfd5;
@@ -95,11 +117,9 @@ body {
   border-radius: 14px;
 
   margin-bottom: 15px;
-
 }
 
 .tab {
-
   flex: 1;
 
   border: 0;
@@ -117,11 +137,9 @@ body {
   color: #765e4e;
 
   cursor: pointer;
-
 }
 
 .tab.active {
-
   background: white;
 
   color: #704a32;
@@ -131,23 +149,22 @@ body {
     2px
     8px
     rgba(0,0,0,.08);
-
 }
 
+
+/* =========================================================
+   區塊
+   ========================================================= */
+
 .section {
-
   display: none;
-
 }
 
 .section.active {
-
   display: block;
-
 }
 
 .card {
-
   background: white;
 
   padding: 17px;
@@ -161,11 +178,9 @@ body {
     3px
     14px
     rgba(94,63,43,.08);
-
 }
 
 .card-title {
-
   font-size: 19px;
 
   font-weight: 900;
@@ -173,34 +188,31 @@ body {
   color: #704a32;
 
   margin-bottom: 15px;
-
 }
 
+
+/* =========================================================
+   表單
+   ========================================================= */
+
 .form-group {
-
   margin-bottom: 15px;
-
 }
 
 label {
-
   display: block;
 
   font-weight: 800;
 
   margin-bottom: 7px;
-
 }
 
 .required {
-
   color: #c84f40;
-
 }
 
 select,
 textarea {
-
   width: 100%;
 
   padding: 12px;
@@ -217,29 +229,28 @@ textarea {
   font-size: 16px;
 
   color: #49382d;
-
 }
 
 textarea {
-
   min-height: 82px;
 
   resize: vertical;
-
 }
 
-.product-list {
 
+/* =========================================================
+   商品
+   ========================================================= */
+
+.product-list {
   display: flex;
 
   flex-direction: column;
 
   gap: 10px;
-
 }
 
 .product-item {
-
   display: flex;
 
   align-items: center;
@@ -260,47 +271,42 @@ textarea {
   padding:
     13px
     11px;
-
 }
 
 .product-info {
-
   flex: 1;
 
   min-width: 0;
-
 }
 
 .product-name {
-
   font-size: 16px;
 
   font-weight: 900;
-
 }
 
 .product-price {
-
   color: #ad6740;
 
   font-weight: 800;
 
   margin-top: 4px;
-
 }
 
-.qty-box {
 
+/* =========================================================
+   數量
+   ========================================================= */
+
+.qty-box {
   display: flex;
 
   align-items: center;
 
   gap: 7px;
-
 }
 
 .qty-btn {
-
   width: 36px;
 
   height: 36px;
@@ -316,11 +322,13 @@ textarea {
   font-size: 23px;
 
   cursor: pointer;
+}
 
+.qty-btn:active {
+  transform: scale(.95);
 }
 
 .qty-value {
-
   width: 36px;
 
   text-align: center;
@@ -328,11 +336,14 @@ textarea {
   font-size: 18px;
 
   font-weight: 900;
-
 }
 
-.btn {
 
+/* =========================================================
+   按鈕
+   ========================================================= */
+
+.btn {
   width: 100%;
 
   padding: 14px;
@@ -346,41 +357,36 @@ textarea {
   font-weight: 900;
 
   cursor: pointer;
-
 }
 
 .btn-primary {
-
-  background: #8d5c3b;
+  background: #087d43;
 
   color: white;
-
 }
 
 .btn-primary:active {
-
-  background: #70472f;
-
+  background: #066a39;
 }
 
 .btn-secondary {
-
   background: #eee4dc;
 
   color: #654b3a;
-
 }
 
 .btn:disabled {
-
   opacity: .55;
 
   cursor: not-allowed;
-
 }
 
-.sticky-summary {
 
+/* =========================================================
+   底部固定總金額
+   ========================================================= */
+
+.sticky-summary {
   position: fixed;
 
   left: 0;
@@ -409,11 +415,9 @@ textarea {
     #eadfd6;
 
   z-index: 50;
-
 }
 
 .sticky-inner {
-
   max-width: 720px;
 
   margin: auto;
@@ -428,41 +432,36 @@ textarea {
   align-items: center;
 
   gap: 12px;
-
 }
 
 .summary-text {
-
   flex: 1;
-
 }
 
 .summary-small {
-
   color: #8c7565;
 
   font-size: 13px;
-
 }
 
 .summary-amount {
-
-  color: #a85931;
+  color: #087d43;
 
   font-size: 22px;
 
   font-weight: 900;
-
 }
 
 .submit-small {
-
   width: 145px;
-
 }
 
-.message {
 
+/* =========================================================
+   訊息
+   ========================================================= */
+
+.message {
   display: none;
 
   padding: 12px;
@@ -470,11 +469,9 @@ textarea {
   border-radius: 10px;
 
   margin-bottom: 12px;
-
 }
 
 .message.error {
-
   display: block;
 
   background: #fff0ee;
@@ -485,12 +482,10 @@ textarea {
     1px
     solid
     #f0c7c1;
-
 }
 
 .loading,
 .empty-result {
-
   text-align: center;
 
   padding:
@@ -498,11 +493,14 @@ textarea {
     10px;
 
   color: #8f7767;
-
 }
 
-.search-summary {
 
+/* =========================================================
+   查詢結果
+   ========================================================= */
+
+.search-summary {
   background: #f1e6dd;
 
   padding: 12px;
@@ -512,11 +510,9 @@ textarea {
   margin-bottom: 12px;
 
   font-weight: 800;
-
 }
 
 .order-result-card {
-
   background: white;
 
   border:
@@ -535,21 +531,17 @@ textarea {
     3px
     12px
     rgba(94,63,43,.06);
-
 }
 
 .order-person {
-
   font-size: 20px;
 
   font-weight: 900;
 
   color: #704a32;
-
 }
 
 .order-meta {
-
   display: flex;
 
   justify-content: space-between;
@@ -569,26 +561,20 @@ textarea {
     1px
     dashed
     #dfd0c4;
-
 }
 
 .order-date {
-
   font-weight: 800;
-
 }
 
 .order-time {
-
   font-size: 12px;
 
   color: #998071;
-
 }
 
 .item-header,
 .order-product {
-
   display: grid;
 
   grid-template-columns:
@@ -598,11 +584,9 @@ textarea {
     82px;
 
   gap: 5px;
-
 }
 
 .item-header {
-
   padding:
     7px
     0;
@@ -617,11 +601,9 @@ textarea {
   font-size: 12px;
 
   font-weight: 800;
-
 }
 
 .order-product {
-
   padding:
     9px
     0;
@@ -632,25 +614,19 @@ textarea {
     #f2eae4;
 
   font-size: 14px;
-
 }
 
 .item-name {
-
   font-weight: 800;
-
 }
 
 .item-number {
-
   text-align: right;
 
   white-space: nowrap;
-
 }
 
 .order-note {
-
   background: #faf6f2;
 
   border-radius: 9px;
@@ -658,17 +634,20 @@ textarea {
   padding: 10px;
 
   margin-top: 10px;
-
 }
 
-.product-total-card {
 
+/* =========================================================
+   品項總數
+   ========================================================= */
+
+.product-total-card {
   background: white;
 
   border:
     2px
     solid
-    #9a603d;
+    #087d43;
 
   border-radius: 16px;
 
@@ -678,24 +657,20 @@ textarea {
     22px
     0
     30px;
-
 }
 
 .product-total-title {
-
   font-size: 21px;
 
   font-weight: 900;
 
-  color: #8d5c3b;
+  color: #087d43;
 
   margin-bottom: 13px;
-
 }
 
 .product-total-header,
 .product-total-row {
-
   display: grid;
 
   grid-template-columns:
@@ -705,50 +680,45 @@ textarea {
   padding:
     9px
     5px;
-
 }
 
 .product-total-header {
-
   border-bottom:
     2px
     solid
     #e1d1c5;
 
   font-weight: 900;
-
 }
 
 .product-total-row {
-
   border-bottom:
     1px
     solid
     #eee3db;
 
   font-weight: 800;
-
 }
 
 .product-total-header div:last-child,
 .product-total-qty {
-
   text-align: right;
-
 }
 
 .product-total-qty {
-
   font-size: 18px;
 
-  color: #a85931;
+  color: #087d43;
 
   font-weight: 900;
-
 }
 
-.modal {
 
+/* =========================================================
+   成功視窗
+   ========================================================= */
+
+.modal {
   position: fixed;
 
   inset: 0;
@@ -770,17 +740,13 @@ textarea {
     );
 
   z-index: 999;
-
 }
 
 .modal.show {
-
   display: flex;
-
 }
 
 .modal-box {
-
   width: 100%;
 
   max-width: 420px;
@@ -794,11 +760,9 @@ textarea {
     20px;
 
   text-align: center;
-
 }
 
 .success-icon {
-
   width: 72px;
 
   height: 72px;
@@ -809,7 +773,7 @@ textarea {
 
   background: #e9f6eb;
 
-  color: #4d9657;
+  color: #087d43;
 
   display: flex;
 
@@ -820,11 +784,9 @@ textarea {
   font-size: 38px;
 
   font-weight: 900;
-
 }
 
 .modal-title {
-
   font-size: 23px;
 
   font-weight: 900;
@@ -832,50 +794,51 @@ textarea {
   margin:
     13px
     0;
-
 }
 
 .modal-content {
-
   line-height: 1.8;
 
   margin-bottom: 18px;
-
 }
 
 .modal-amount {
-
-  color: #a85931;
+  color: #087d43;
 
   font-size: 23px;
 
   font-weight: 900;
-
 }
+
+
+/* =========================================================
+   手機
+   ========================================================= */
 
 @media(max-width:480px) {
 
   .container {
-
     padding-left: 10px;
-
     padding-right: 10px;
-
   }
 
+  .header-logo {
+    width: 75px;
+    height: 75px;
+  }
+
+  .header h1 {
+    font-size: 25px;
+  }
 
   .card {
-
     padding:
       15px
       12px;
-
   }
-
 
   .item-header,
   .order-product {
-
     grid-template-columns:
       1fr
       34px
@@ -883,14 +846,10 @@ textarea {
       72px;
 
     font-size: 12px;
-
   }
 
-
   .submit-small {
-
     width: 130px;
-
   }
 
 }
@@ -906,10 +865,20 @@ textarea {
 <div class="container">
 
 
+  <!-- =====================================================
+       桃園區農會 LOGO
+       ===================================================== -->
+
   <div class="header">
 
-    <div class="header-icon">
-      🍞
+    <img
+      src="images/20131225-農會-CIS-252.png"
+      class="header-logo"
+      alt="桃園區農會 Logo"
+    >
+
+    <div class="farmers-name">
+      桃園區農會
     </div>
 
     <h1>
@@ -923,6 +892,8 @@ textarea {
   </div>
 
 
+  <!-- 頁籤 -->
+
   <div class="tabs">
 
     <button
@@ -932,7 +903,6 @@ textarea {
     >
       我要訂購
     </button>
-
 
     <button
       id="searchTab"
@@ -945,7 +915,10 @@ textarea {
   </div>
 
 
-  <!-- 我要訂購 -->
+  <!-- =====================================================
+       我要訂購
+       ===================================================== -->
+
   <div
     id="orderSection"
     class="section active"
@@ -966,7 +939,6 @@ textarea {
           <span class="required">*</span>
         </label>
 
-
         <select id="customerName">
 
           <option value="">
@@ -985,7 +957,6 @@ textarea {
           <span class="required">*</span>
         </label>
 
-
         <select id="orderDate">
 
           <option value="">
@@ -1003,7 +974,6 @@ textarea {
           備註
         </label>
 
-
         <textarea
           id="note"
           placeholder="如有其他需求可填寫"
@@ -1019,7 +989,6 @@ textarea {
       <div class="card-title">
         選擇商品
       </div>
-
 
       <div
         id="productList"
@@ -1051,7 +1020,10 @@ textarea {
   </div>
 
 
-  <!-- 查詢訂單 -->
+  <!-- =====================================================
+       查詢訂單
+       ===================================================== -->
+
   <div
     id="searchSection"
     class="section"
@@ -1071,7 +1043,6 @@ textarea {
           訂購人
         </label>
 
-
         <select id="searchName">
 
           <option value="">
@@ -1088,7 +1059,6 @@ textarea {
         <label>
           訂購日期
         </label>
-
 
         <select id="searchDate">
 
@@ -1127,7 +1097,10 @@ textarea {
 </div>
 
 
-<!-- 固定總計 -->
+<!-- =====================================================
+     固定總計
+     ===================================================== -->
+
 <div
   id="stickySummary"
   class="sticky-summary"
@@ -1142,7 +1115,6 @@ textarea {
         <span id="totalQty">0</span>
         件
       </div>
-
 
       <div class="summary-amount">
         NT$
@@ -1165,7 +1137,10 @@ textarea {
 </div>
 
 
-<!-- 成功視窗 -->
+<!-- =====================================================
+     成功視窗
+     ===================================================== -->
+
 <div
   id="successModal"
   class="modal"
@@ -1177,17 +1152,14 @@ textarea {
       ✓
     </div>
 
-
     <div class="modal-title">
       訂購成功
     </div>
-
 
     <div
       id="successContent"
       class="modal-content"
     ></div>
-
 
     <button
       class="btn btn-primary"
@@ -1204,36 +1176,30 @@ textarea {
 <script>
 
 
-/*************************************************
- * ★ Apps Script API 網址
- *
- * 請把下面改成你的 /exec 網址
- *************************************************/
+/* =========================================================
+   Apps Script API
+   ========================================================= */
+
 const API_URL =
   'https://script.google.com/macros/s/AKfycbxPPuIf5GkTsFBQbd7ja94U4hVJyNqNWRjRwMJz_-jv7hlUTs-RsLPIEXBAw0zzP0p9/exec';
 
 
-/*************************************************
- * 資料
- *************************************************/
+/* =========================================================
+   資料
+   ========================================================= */
+
 let products = [];
-
 let customers = [];
-
 let openDates = [];
+let quantities = [];
 
-let quantities = {};
-
-
-/*************************************************
- * JSONP 編號
- *************************************************/
 let jsonpCounter = 0;
 
 
-/*************************************************
- * 啟動
- *************************************************/
+/* =========================================================
+   啟動
+   ========================================================= */
+
 window.addEventListener(
   'load',
   function() {
@@ -1244,9 +1210,10 @@ window.addEventListener(
 );
 
 
-/*************************************************
- * JSONP
- *************************************************/
+/* =========================================================
+   JSONP
+   ========================================================= */
+
 function jsonpRequest(
   params,
   success,
@@ -1254,7 +1221,6 @@ function jsonpRequest(
 ) {
 
   jsonpCounter++;
-
 
   const callbackName =
     '__bakeryCallback_' +
@@ -1276,8 +1242,11 @@ function jsonpRequest(
     setTimeout(
       function() {
 
-        cleanup();
+        if (finished) {
+          return;
+        }
 
+        cleanup();
 
         if (failure) {
 
@@ -1290,26 +1259,21 @@ function jsonpRequest(
         }
 
       },
-      20000
+      30000
     );
 
 
   function cleanup() {
 
     if (finished) {
-
       return;
-
     }
 
-
     finished = true;
-
 
     clearTimeout(
       timer
     );
-
 
     try {
 
@@ -1318,7 +1282,6 @@ function jsonpRequest(
       ];
 
     }
-
     catch (error) {
 
       window[
@@ -1326,7 +1289,6 @@ function jsonpRequest(
       ] = undefined;
 
     }
-
 
     if (
       script.parentNode
@@ -1346,8 +1308,11 @@ function jsonpRequest(
   ] =
     function(data) {
 
-      cleanup();
+      if (finished) {
+        return;
+      }
 
+      cleanup();
 
       if (success) {
 
@@ -1384,6 +1349,12 @@ function jsonpRequest(
   );
 
 
+  query.append(
+    '_',
+    Date.now()
+  );
+
+
   const separator =
     API_URL.includes('?')
       ? '&'
@@ -1396,11 +1367,17 @@ function jsonpRequest(
     query.toString();
 
 
+  script.async = true;
+
+
   script.onerror =
     function() {
 
-      cleanup();
+      if (finished) {
+        return;
+      }
 
+      cleanup();
 
       if (failure) {
 
@@ -1422,9 +1399,10 @@ function jsonpRequest(
 }
 
 
-/*************************************************
- * 初始化
- *************************************************/
+/* =========================================================
+   初始化資料
+   ========================================================= */
+
 function loadInitialData() {
 
   if (
@@ -1436,10 +1414,9 @@ function loadInitialData() {
 
     showMessage(
       'orderMessage',
-      '請先在 index.html 設定 Apps Script /exec 網址。',
+      '請先設定 Apps Script /exec 網址。',
       'error'
     );
-
 
     document.getElementById(
       'productList'
@@ -1447,7 +1424,6 @@ function loadInitialData() {
       '<div class="empty-result">' +
       '尚未設定 Apps Script 網址' +
       '</div>';
-
 
     return;
 
@@ -1475,7 +1451,6 @@ function loadInitialData() {
             : '資料載入失敗',
           'error'
         );
-
 
         return;
 
@@ -1527,9 +1502,10 @@ function loadInitialData() {
 }
 
 
-/*************************************************
- * 訂購人
- *************************************************/
+/* =========================================================
+   訂購人
+   ========================================================= */
+
 function renderCustomers() {
 
   const orderSelect =
@@ -1602,9 +1578,10 @@ function renderCustomers() {
 }
 
 
-/*************************************************
- * 日期
- *************************************************/
+/* =========================================================
+   日期
+   ========================================================= */
+
 function renderDates() {
 
   const orderSelect =
@@ -1636,7 +1613,6 @@ function renderDates() {
       '<option value="">' +
       '目前尚未開放訂購日期' +
       '</option>';
-
 
     return;
 
@@ -1713,9 +1689,10 @@ function renderDates() {
 }
 
 
-/*************************************************
- * 商品
- *************************************************/
+/* =========================================================
+   商品
+   ========================================================= */
+
 function renderProducts() {
 
   const container =
@@ -1727,6 +1704,9 @@ function renderProducts() {
   container.innerHTML = '';
 
 
+  quantities = {};
+
+
   if (
     products.length === 0
   ) {
@@ -1735,7 +1715,6 @@ function renderProducts() {
       '<div class="empty-result">' +
       '目前沒有商品' +
       '</div>';
-
 
     return;
 
@@ -1934,9 +1913,10 @@ function renderProducts() {
 }
 
 
-/*************************************************
- * 商品數量
- *************************************************/
+/* =========================================================
+   商品數量
+   ========================================================= */
+
 function changeQty(
   productName,
   amount
@@ -1990,9 +1970,10 @@ function changeQty(
 }
 
 
-/*************************************************
- * 商品 ID
- *************************************************/
+/* =========================================================
+   商品 ID
+   ========================================================= */
+
 function getQtyId(
   name
 ) {
@@ -2027,9 +2008,10 @@ function getQtyId(
 }
 
 
-/*************************************************
- * 總計
- *************************************************/
+/* =========================================================
+   總計
+   ========================================================= */
+
 function updateTotal() {
 
   let totalQty = 0;
@@ -2055,7 +2037,7 @@ function updateTotal() {
       totalAmount +=
         qty *
         Number(
-          product.price
+          product.price || 0
         );
 
     }
@@ -2078,9 +2060,10 @@ function updateTotal() {
 }
 
 
-/*************************************************
- * 送出訂單
- *************************************************/
+/* =========================================================
+   送出訂單
+   ========================================================= */
+
 function submitOrder() {
 
   hideMessage(
@@ -2114,7 +2097,6 @@ function submitOrder() {
       'error'
     );
 
-
     return;
 
   }
@@ -2127,7 +2109,6 @@ function submitOrder() {
       '請選擇訂購日期',
       'error'
     );
-
 
     return;
 
@@ -2160,7 +2141,6 @@ function submitOrder() {
       '請至少選擇一項商品',
       'error'
     );
-
 
     return;
 
@@ -2231,7 +2211,6 @@ function submitOrder() {
           'error'
         );
 
-
         return;
 
       }
@@ -2270,9 +2249,10 @@ function submitOrder() {
 }
 
 
-/*************************************************
- * 成功視窗
- *************************************************/
+/* =========================================================
+   成功視窗
+   ========================================================= */
+
 function showSuccessModal(
   result
 ) {
@@ -2320,9 +2300,10 @@ function showSuccessModal(
 }
 
 
-/*************************************************
- * 關閉成功
- *************************************************/
+/* =========================================================
+   關閉成功視窗
+   ========================================================= */
+
 function closeSuccessModal() {
 
   document.getElementById(
@@ -2334,9 +2315,10 @@ function closeSuccessModal() {
 }
 
 
-/*************************************************
- * 清除訂單
- *************************************************/
+/* =========================================================
+   清除訂單
+   ========================================================= */
+
 function resetOrder(
   keepCustomer
 ) {
@@ -2402,9 +2384,10 @@ function resetOrder(
 }
 
 
-/*************************************************
- * 查詢訂單
- *************************************************/
+/* =========================================================
+   查詢訂單
+   ========================================================= */
+
 function searchOrder() {
 
   hideMessage(
@@ -2524,9 +2507,10 @@ function searchOrder() {
 }
 
 
-/*************************************************
- * 查詢結果
- *************************************************/
+/* =========================================================
+   查詢結果
+   ========================================================= */
+
 function renderSearchResults(
   results
 ) {
@@ -2548,7 +2532,6 @@ function renderSearchResults(
       '<div class="card empty-result">' +
       '查不到符合條件的訂單' +
       '</div>';
-
 
     return;
 
@@ -2592,9 +2575,6 @@ function renderSearchResults(
         'order-result-card';
 
 
-      /*******************************************
-       * 訂購人
-       *******************************************/
       const person =
         document.createElement(
           'div'
@@ -2614,9 +2594,6 @@ function renderSearchResults(
       );
 
 
-      /*******************************************
-       * 日期 / 時間
-       *******************************************/
       const meta =
         document.createElement(
           'div'
@@ -2673,9 +2650,6 @@ function renderSearchResults(
       );
 
 
-      /*******************************************
-       * 商品表頭
-       *******************************************/
       const header =
         document.createElement(
           'div'
@@ -2698,9 +2672,6 @@ function renderSearchResults(
       );
 
 
-      /*******************************************
-       * 商品內容
-       *******************************************/
       const items =
         order.items || [];
 
@@ -2829,9 +2800,6 @@ function renderSearchResults(
       );
 
 
-      /*******************************************
-       * 備註
-       *******************************************/
       if (
         order['備註']
       ) {
@@ -2866,9 +2834,10 @@ function renderSearchResults(
   );
 
 
-  /*********************************************
-   * 品項總數量
-   *********************************************/
+  /* =====================================================
+     品項總數量
+     ===================================================== */
+
   const totalCard =
     document.createElement(
       'div'
@@ -2997,9 +2966,10 @@ function renderSearchResults(
 }
 
 
-/*************************************************
- * 頁籤
- *************************************************/
+/* =========================================================
+   頁籤
+   ========================================================= */
+
 function switchTab(
   tab
 ) {
@@ -3050,9 +3020,10 @@ function switchTab(
 }
 
 
-/*************************************************
- * 日期顯示
- *************************************************/
+/* =========================================================
+   日期顯示
+   ========================================================= */
+
 function formatDateLabel(
   value
 ) {
@@ -3083,9 +3054,10 @@ function formatDateLabel(
 }
 
 
-/*************************************************
- * 金額
- *************************************************/
+/* =========================================================
+   金額
+   ========================================================= */
+
 function formatMoney(
   value
 ) {
@@ -3099,9 +3071,10 @@ function formatMoney(
 }
 
 
-/*************************************************
- * 訊息
- *************************************************/
+/* =========================================================
+   訊息
+   ========================================================= */
+
 function showMessage(
   id,
   text,
@@ -3145,9 +3118,10 @@ function hideMessage(
 }
 
 
-/*************************************************
- * HTML 安全
- *************************************************/
+/* =========================================================
+   HTML 安全
+   ========================================================= */
+
 function escapeHtml(
   value
 ) {
@@ -3180,9 +3154,7 @@ function escapeHtml(
 
 }
 
-
 </script>
-
 
 </body>
 
