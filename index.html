@@ -1,1363 +1,2302 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 
 <head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-  >
-
-  <title>烘焙線上訂購</title>
-
-  <style>
-    :root{
-      --bg:#f8f3ed;
-      --card:#ffffff;
-      --brown:#69402a;
-      --brown2:#9b6038;
-      --brown3:#b7774e;
-      --text:#49362b;
-      --muted:#92796a;
-      --price:#bd6534;
-      --border:#ead8ca;
-      --tab:#eadfd5;
-      --danger:#c34c43;
-      --success:#4f7d59;
-    }
-
-    *{
-      box-sizing:border-box;
-    }
-
-    html,
-    body{
-      margin:0;
-      padding:0;
-      min-height:100%;
-    }
-
-    body{
-      background:var(--bg);
-      color:var(--text);
-      font-family:
-        "Microsoft JhengHei",
-        "Noto Sans TC",
-        Arial,
-        sans-serif;
-      padding-bottom:95px;
-    }
-
-    button,
-    select,
-    textarea{
-      font-family:inherit;
-    }
-
-    button{
-      -webkit-tap-highlight-color:transparent;
-    }
-
-    .wrap{
-      width:100%;
-      max-width:760px;
-      margin:0 auto;
-    }
-
-    /* =========================
-       Header
-       ========================= */
-
-    .header{
-      padding:20px 20px 12px;
-      text-align:center;
-    }
-
-    .logo{
-      font-size:48px;
-      line-height:1;
-    }
-
-    .title{
-      margin-top:7px;
-      color:var(--brown);
-      font-size:29px;
-      font-weight:900;
-    }
-
-    .subtitle{
-      margin-top:7px;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.6;
-    }
-
-    /* =========================
-       Tabs
-       ========================= */
-
-    .tabs{
-      display:flex;
-      margin:8px 18px 17px;
-      padding:5px;
-      background:var(--tab);
-      border-radius:16px;
-    }
-
-    .tab{
-      flex:1;
-      height:48px;
-      border:0;
-      border-radius:12px;
-      background:transparent;
-      color:#785845;
-      font-size:16px;
-      font-weight:900;
-      cursor:pointer;
-    }
-
-    .tab.active{
-      background:#fff;
-      color:var(--brown);
-      box-shadow:0 2px 7px rgba(83,45,25,.10);
-    }
-
-    /* =========================
-       Card
-       ========================= */
-
-    .card{
-      margin:0 18px 17px;
-      padding:18px;
-      background:var(--card);
-      border-radius:18px;
-      box-shadow:0 7px 22px rgba(97,57,35,.08);
-    }
-
-    .section-title{
-      margin-bottom:18px;
-      color:var(--brown);
-      font-size:20px;
-      font-weight:900;
-    }
-
-    /* =========================
-       Fields
-       ========================= */
-
-    .field{
-      margin-bottom:17px;
-    }
-
-    .field:last-child{
-      margin-bottom:0;
-    }
-
-    label{
-      display:block;
-      margin-bottom:8px;
-      color:#5e402d;
-      font-size:15px;
-      font-weight:900;
-    }
-
-    .required{
-      color:var(--danger);
-    }
-
-    select,
-    textarea{
-      width:100%;
-      border:1px solid #dbc1b1;
-      border-radius:11px;
-      background:#fffdfb;
-      color:#49362b;
-      font-size:16px;
-      outline:none;
-    }
-
-    select{
-      height:48px;
-      padding:0 13px;
-    }
-
-    textarea{
-      min-height:82px;
-      padding:13px;
-      resize:vertical;
-    }
-
-    select:focus,
-    textarea:focus{
-      border-color:var(--brown3);
-    }
-
-    /* =========================
-       Products
-       ========================= */
-
-    .product-title{
-      margin-bottom:13px;
-      color:var(--brown);
-      font-size:19px;
-      font-weight:900;
-    }
-
-    .product{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      min-height:76px;
-      margin-bottom:10px;
-      padding:12px 11px 12px 13px;
-      border:1px solid var(--border);
-      border-radius:14px;
-      background:#fff;
-    }
-
-    .product:last-child{
-      margin-bottom:0;
-    }
-
-    .product-info{
-      min-width:0;
-      padding-right:12px;
-    }
-
-    .product-name{
-      font-size:16px;
-      font-weight:900;
-      word-break:break-word;
-    }
-
-    .product-price{
-      margin-top:5px;
-      color:var(--price);
-      font-size:15px;
-      font-weight:900;
-    }
-
-    .qty-box{
-      display:flex;
-      align-items:center;
-      gap:9px;
-      flex-shrink:0;
-    }
-
-    .qty-btn{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      width:38px;
-      height:38px;
-      padding:0;
-      border:0;
-      border-radius:50%;
-      background:var(--brown2);
-      color:white;
-      font-size:24px;
-      font-weight:700;
-      cursor:pointer;
-    }
-
-    .qty-btn:active{
-      transform:scale(.95);
-    }
-
-    .qty-number{
-      min-width:28px;
-      text-align:center;
-      font-size:18px;
-      font-weight:900;
-    }
-
-    /* =========================
-       Clear
-       ========================= */
-
-    .clear-wrap{
-      margin:5px 18px 25px;
-    }
-
-    .clear-btn{
-      width:100%;
-      height:50px;
-      border:0;
-      border-radius:12px;
-      background:#eee3da;
-      color:#67412b;
-      font-size:16px;
-      font-weight:900;
-      cursor:pointer;
-    }
-
-    /* =========================
-       Bottom bar
-       ========================= */
-
-    .bottom{
-      position:fixed;
-      left:0;
-      right:0;
-      bottom:0;
-      z-index:100;
-      padding:9px 10px calc(9px + env(safe-area-inset-bottom));
-      background:white;
-      border-top:1px solid #e1d3c9;
-      box-shadow:0 -3px 14px rgba(0,0,0,.05);
-    }
-
-    .bottom-inner{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      max-width:760px;
-      margin:auto;
-    }
-
-    .total{
-      flex:1;
-    }
-
-    .total-count{
-      color:#88766b;
-      font-size:13px;
-    }
-
-    .total-money{
-      margin-top:2px;
-      color:var(--brown2);
-      font-size:23px;
-      font-weight:900;
-    }
-
-    .submit-btn{
-      width:155px;
-      height:51px;
-      border:0;
-      border-radius:12px;
-      background:var(--brown2);
-      color:white;
-      font-size:17px;
-      font-weight:900;
-      cursor:pointer;
-    }
-
-    .submit-btn:disabled{
-      opacity:.5;
-      cursor:not-allowed;
-    }
-
-    /* =========================
-       Search
-       ========================= */
-
-    #searchPage{
-      display:none;
-    }
-
-    .search-btn{
-      width:100%;
-      height:49px;
-      border:0;
-      border-radius:11px;
-      background:var(--brown2);
-      color:white;
-      font-size:17px;
-      font-weight:900;
-      cursor:pointer;
-    }
-
-    .search-results{
-      margin-top:17px;
-    }
-
-    .order-card{
-      margin-bottom:13px;
-      padding:15px;
-      border:1px solid var(--border);
-      border-radius:14px;
-      background:#fffaf7;
-    }
-
-    .order-head{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:11px;
-    }
-
-    .order-customer{
-      color:#6f4a35;
-      font-size:14px;
-      font-weight:900;
-      margin-bottom:3px;
-    }
-
-    .order-date{
-      color:var(--brown);
-      font-weight:900;
-    }
-
-    .order-total{
-      color:var(--price);
-      font-weight:900;
-      white-space:nowrap;
-    }
-
-    .order-item{
-      display:flex;
-      justify-content:space-between;
-      gap:15px;
-      padding:7px 0;
-      border-bottom:1px dashed #eadbd1;
-      font-size:14px;
-      line-height:1.5;
-    }
-
-    .order-item:last-child{
-      border-bottom:0;
-    }
-
-    .order-note{
-      margin-top:10px;
-      color:#7c675a;
-      font-size:13px;
-      line-height:1.6;
-      word-break:break-word;
-    }
-
-    .order-summary{
-      margin-top:10px;
-      text-align:right;
-      color:#68442e;
-      font-weight:900;
-    }
-
-    .empty{
-      padding:30px 5px;
-      text-align:center;
-      color:#967b6a;
-    }
-
-    /* =========================
-       Loading
-       ========================= */
-
-    .loading{
-      display:none;
-      position:fixed;
-      inset:0;
-      z-index:500;
-      align-items:center;
-      justify-content:center;
-      background:rgba(255,255,255,.82);
-    }
-
-    .loading.show{
-      display:flex;
-    }
-
-    .loading-box{
-      padding:19px 29px;
-      border-radius:15px;
-      background:white;
-      color:var(--brown);
-      font-weight:900;
-      box-shadow:0 6px 26px rgba(0,0,0,.15);
-    }
-
-    /* =========================
-       Success modal
-       ========================= */
-
-    .modal{
-      display:none;
-      position:fixed;
-      inset:0;
-      z-index:600;
-      align-items:center;
-      justify-content:center;
-      padding:25px;
-      background:rgba(0,0,0,.36);
-    }
-
-    .modal.show{
-      display:flex;
-    }
-
-    .modal-box{
-      width:100%;
-      max-width:365px;
-      padding:25px 20px 20px;
-      border-radius:19px;
-      background:white;
-      text-align:center;
-    }
-
-    .modal-icon{
-      font-size:52px;
-    }
-
-    .modal-title{
-      margin-top:5px;
-      color:var(--brown);
-      font-size:23px;
-      font-weight:900;
-    }
-
-    .modal-text{
-      margin-top:11px;
-      color:#735d50;
-      line-height:1.9;
-    }
-
-    .modal-btn{
-      width:100%;
-      height:48px;
-      margin-top:19px;
-      border:0;
-      border-radius:11px;
-      background:var(--brown2);
-      color:white;
-      font-size:16px;
-      font-weight:900;
-      cursor:pointer;
-    }
-
-    /* =========================
-       System message
-       ========================= */
-
-    .system-message{
-      margin:0 18px 15px;
-      padding:12px 14px;
-      border-radius:12px;
-      background:#fff8f3;
-      color:#7a5138;
-      border:1px solid #ead5c7;
-      font-size:14px;
-      line-height:1.6;
-    }
-
-    .system-message.error{
-      background:#fff1f0;
-      color:#934a43;
-      border-color:#efc8c4;
-    }
-
-    /* =========================
-       Mobile
-       ========================= */
-
-    @media(max-width:480px){
-
-      .header{
-        padding-top:16px;
-      }
-
-      .logo{
-        font-size:43px;
-      }
-
-      .title{
-        font-size:27px;
-      }
-
-      .tabs{
-        margin-left:14px;
-        margin-right:14px;
-      }
-
-      .card{
-        margin-left:14px;
-        margin-right:14px;
-      }
-
-      .clear-wrap{
-        margin-left:14px;
-        margin-right:14px;
-      }
-
-      .system-message{
-        margin-left:14px;
-        margin-right:14px;
-      }
-
-      .submit-btn{
-        width:145px;
-      }
-
-      .product{
-        padding-left:11px;
-      }
-
-      .product-name{
-        font-size:15px;
-      }
-    }
-  </style>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, maximum-scale=1"
+>
+
+<title>烘焙線上訂購</title>
+
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f7f1ea;
+  color: #4b382d;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Microsoft JhengHei",
+    "Noto Sans TC",
+    sans-serif;
+}
+
+.container {
+  width: 100%;
+  max-width: 720px;
+  margin: auto;
+  padding: 15px 12px 125px;
+}
+
+.header {
+  text-align: center;
+  padding: 22px 5px 18px;
+}
+
+.header-icon {
+  font-size: 48px;
+}
+
+.header h1 {
+  margin: 4px 0;
+  font-size: 28px;
+  color: #704a32;
+}
+
+.header p {
+  color: #927866;
+  font-size: 14px;
+}
+
+.tabs {
+  display: flex;
+  background: #eadfd5;
+  padding: 5px;
+  border-radius: 14px;
+  margin-bottom: 15px;
+}
+
+.tab {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #765e4e;
+}
+
+.tab.active {
+  background: white;
+  color: #704a32;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+.card {
+  background: white;
+  padding: 17px;
+  border-radius: 18px;
+  margin-bottom: 14px;
+  box-shadow: 0 3px 14px rgba(94,63,43,.08);
+}
+
+.card-title {
+  font-size: 19px;
+  font-weight: 900;
+  color: #704a32;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: 800;
+  margin-bottom: 7px;
+}
+
+.required {
+  color: #c84f40;
+}
+
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dccdc2;
+  border-radius: 11px;
+  background: #fffdfb;
+  font-size: 16px;
+  color: #49382d;
+}
+
+textarea {
+  min-height: 82px;
+  resize: vertical;
+}
+
+.product-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.product-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border: 1px solid #eee2d9;
+  background: #fffdfb;
+  border-radius: 14px;
+  padding: 13px 11px;
+}
+
+.product-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.product-name {
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.product-price {
+  color: #ad6740;
+  font-weight: 800;
+  margin-top: 4px;
+}
+
+.qty-box {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.qty-btn {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: #8d5c3b;
+  color: white;
+  font-size: 23px;
+  line-height: 36px;
+}
+
+.qty-value {
+  width: 36px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.btn {
+  width: 100%;
+  padding: 14px;
+  border: 0;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #8d5c3b;
+  color: white;
+}
+
+.btn-secondary {
+  background: #eee4dc;
+  color: #654b3a;
+}
+
+.btn:disabled {
+  opacity: .55;
+}
+
+.sticky-summary {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255,255,255,.98);
+  box-shadow: 0 -4px 18px rgba(0,0,0,.08);
+  border-top: 1px solid #eadfd6;
+  z-index: 50;
+}
+
+.sticky-inner {
+  max-width: 720px;
+  margin: auto;
+  padding: 10px 13px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.summary-text {
+  flex: 1;
+}
+
+.summary-small {
+  color: #8c7565;
+  font-size: 13px;
+}
+
+.summary-amount {
+  color: #a85931;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.submit-small {
+  width: 145px;
+}
+
+.message {
+  display: none;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.message.error {
+  display: block;
+  background: #fff0ee;
+  color: #a13d31;
+  border: 1px solid #f0c7c1;
+}
+
+.loading,
+.empty-result {
+  text-align: center;
+  padding: 25px 10px;
+  color: #8f7767;
+}
+
+.search-summary {
+  background: #f1e6dd;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  font-weight: 800;
+}
+
+.order-result-card {
+  background: white;
+  border: 1px solid #eadfd6;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 3px 12px rgba(94,63,43,.06);
+}
+
+.order-person {
+  font-size: 20px;
+  font-weight: 900;
+  color: #704a32;
+}
+
+.order-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 7px 0 11px;
+  margin-bottom: 10px;
+  border-bottom: 1px dashed #dfd0c4;
+}
+
+.order-date {
+  font-weight: 800;
+}
+
+.order-time {
+  font-size: 12px;
+  color: #998071;
+}
+
+.item-header,
+.order-product {
+  display: grid;
+  grid-template-columns: 1fr 48px 72px 82px;
+  gap: 5px;
+}
+
+.item-header {
+  padding: 7px 0;
+  border-bottom: 1px solid #e9ddd4;
+  color: #927563;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.order-product {
+  padding: 9px 0;
+  border-bottom: 1px solid #f2eae4;
+  font-size: 14px;
+}
+
+.item-name {
+  font-weight: 800;
+}
+
+.item-number {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.order-note {
+  background: #faf6f2;
+  border-radius: 9px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.product-total-card {
+  background: white;
+  border: 2px solid #9a603d;
+  border-radius: 16px;
+  padding: 16px;
+  margin: 22px 0 30px;
+}
+
+.product-total-title {
+  font-size: 21px;
+  font-weight: 900;
+  color: #8d5c3b;
+  margin-bottom: 13px;
+}
+
+.product-total-header,
+.product-total-row {
+  display: grid;
+  grid-template-columns: 1fr 90px;
+  padding: 9px 5px;
+}
+
+.product-total-header {
+  border-bottom: 2px solid #e1d1c5;
+  font-weight: 900;
+}
+
+.product-total-row {
+  border-bottom: 1px solid #eee3db;
+  font-weight: 800;
+}
+
+.product-total-header div:last-child,
+.product-total-qty {
+  text-align: right;
+}
+
+.product-total-qty {
+  font-size: 18px;
+  color: #a85931;
+  font-weight: 900;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(48,34,25,.55);
+  z-index: 999;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-box {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  border-radius: 20px;
+  padding: 25px 20px;
+  text-align: center;
+}
+
+.success-icon {
+  width: 72px;
+  height: 72px;
+  margin: auto;
+  border-radius: 50%;
+  background: #e9f6eb;
+  color: #4d9657;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  font-weight: 900;
+}
+
+.modal-title {
+  font-size: 23px;
+  font-weight: 900;
+  margin: 13px 0;
+}
+
+.modal-content {
+  line-height: 1.8;
+  margin-bottom: 18px;
+}
+
+.modal-amount {
+  color: #a85931;
+  font-size: 23px;
+  font-weight: 900;
+}
+
+@media(max-width:480px) {
+
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .card {
+    padding: 15px 12px;
+  }
+
+  .item-header,
+  .order-product {
+    grid-template-columns:
+      1fr 34px 63px 72px;
+    font-size: 12px;
+  }
+
+  .submit-small {
+    width: 130px;
+  }
+
+}
+
+</style>
+
 </head>
 
 
 <body>
 
-  <div class="wrap">
 
-    <div class="header">
+<div class="container">
 
-      <div class="logo">
-        🍞
-      </div>
 
-      <div class="title">
-        烘焙線上訂購
-      </div>
+<div class="header">
 
-      <div class="subtitle">
-        選擇訂購人、日期及商品即可完成訂購
-      </div>
+  <div class="header-icon">
+    🍞
+  </div>
 
-    </div>
+  <h1>
+    烘焙線上訂購
+  </h1>
 
+  <p>
+    選擇訂購人、日期及商品即可完成訂購
+  </p>
 
-    <div class="tabs">
+</div>
 
-      <button
-        id="orderTab"
-        class="tab active"
-        type="button"
-        onclick="showOrder()"
-      >
-        我要訂購
-      </button>
 
-      <button
-        id="searchTab"
-        class="tab"
-        type="button"
-        onclick="showSearch()"
-      >
-        查詢訂單
-      </button>
+<div class="tabs">
 
-    </div>
+  <button
+    id="orderTab"
+    class="tab active"
+    onclick="switchTab('order')"
+  >
+    我要訂購
+  </button>
 
+  <button
+    id="searchTab"
+    class="tab"
+    onclick="switchTab('search')"
+  >
+    查詢訂單
+  </button>
 
-    <div
-      id="systemMessage"
-      class="system-message"
-      style="display:none;"
-    ></div>
+</div>
 
 
-    <!-- 我要訂購 -->
-    <div id="orderPage">
+<!-- 我要訂購 -->
+<div
+  id="orderSection"
+  class="section active"
+>
 
-      <div class="card">
 
-        <div class="section-title">
-          訂購資料
-        </div>
+<div class="card">
 
-        <div class="field">
+  <div class="card-title">
+    訂購資料
+  </div>
 
-          <label for="customer">
-            訂購人
-            <span class="required">*</span>
-          </label>
 
-          <select id="customer">
+  <div class="form-group">
 
-            <option value="">
-              請選擇訂購人
-            </option>
+    <label>
+      訂購人
+      <span class="required">*</span>
+    </label>
 
-          </select>
+    <select id="customerName">
 
-        </div>
+      <option value="">
+        名單載入中...
+      </option>
 
-
-        <div class="field">
-
-          <label for="orderDate">
-            訂購日期
-            <span class="required">*</span>
-          </label>
-
-          <select id="orderDate">
-
-            <option value="">
-              請選擇訂購日期
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <div class="field">
-
-          <label for="note">
-            備註
-          </label>
-
-          <textarea
-            id="note"
-            maxlength="300"
-            placeholder="如有其他需求可填寫"
-          ></textarea>
-
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="product-title">
-          選擇商品
-        </div>
-
-        <div id="products"></div>
-
-      </div>
-
-
-      <div class="clear-wrap">
-
-        <button
-          class="clear-btn"
-          type="button"
-          onclick="clearAll()"
-        >
-          清除全部
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <!-- 查詢訂單 -->
-    <div id="searchPage">
-
-      <div class="card">
-
-        <div class="section-title">
-          查詢訂單
-        </div>
-
-
-        <div class="field">
-
-          <label for="searchCustomer">
-            訂購人
-          </label>
-
-          <select id="searchCustomer">
-
-            <option value="">
-              請選擇訂購人
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <div class="field">
-
-          <label for="searchDate">
-            訂購日期
-          </label>
-
-          <select id="searchDate">
-
-            <option value="">
-              全部日期
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <button
-          class="search-btn"
-          type="button"
-          onclick="searchOrdersNow()"
-        >
-          查詢訂單
-        </button>
-
-
-        <div
-          id="searchResults"
-          class="search-results"
-        ></div>
-
-      </div>
-
-    </div>
+    </select>
 
   </div>
 
 
-  <!-- 底部總金額 -->
+  <div class="form-group">
+
+    <label>
+      訂購日期
+      <span class="required">*</span>
+    </label>
+
+    <select id="orderDate">
+
+      <option value="">
+        日期載入中...
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <div class="form-group">
+
+    <label>
+      備註
+    </label>
+
+    <textarea
+      id="note"
+      placeholder="如有其他需求可填寫"
+    ></textarea>
+
+  </div>
+
+</div>
+
+
+<div class="card">
+
+  <div class="card-title">
+    選擇商品
+  </div>
+
   <div
-    id="bottomBar"
-    class="bottom"
+    id="productList"
+    class="product-list"
   >
 
-    <div class="bottom-inner">
-
-      <div class="total">
-
-        <div
-          id="totalCount"
-          class="total-count"
-        >
-          共 0 件
-        </div>
-
-        <div
-          id="totalMoney"
-          class="total-money"
-        >
-          NT$ 0
-        </div>
-
-      </div>
-
-
-      <button
-        id="submitBtn"
-        class="submit-btn"
-        type="button"
-        onclick="submitOrderNow()"
-      >
-        送出訂單
-      </button>
-
+    <div class="loading">
+      商品載入中...
     </div>
 
   </div>
 
+</div>
 
-  <!-- Loading -->
-  <div
-    id="loading"
-    class="loading"
+
+<div
+  id="orderMessage"
+  class="message"
+></div>
+
+
+<button
+  class="btn btn-secondary"
+  onclick="resetOrder(false)"
+>
+  清除全部
+</button>
+
+
+</div>
+
+
+<!-- 查詢訂單 -->
+<div
+  id="searchSection"
+  class="section"
+>
+
+
+<div class="card">
+
+  <div class="card-title">
+    查詢訂單
+  </div>
+
+
+  <div class="form-group">
+
+    <label>
+      訂購人
+    </label>
+
+    <select id="searchName">
+
+      <option value="">
+        全部訂購人
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <div class="form-group">
+
+    <label>
+      訂購日期
+    </label>
+
+    <select id="searchDate">
+
+      <option value="">
+        全部日期
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <button
+    id="searchButton"
+    class="btn btn-primary"
+    onclick="searchOrder()"
   >
-
-    <div class="loading-box">
-      處理中...
-    </div>
-
-  </div>
+    查詢訂單
+  </button>
 
 
-  <!-- 成功 Modal -->
   <div
-    id="successModal"
-    class="modal"
-  >
+    id="searchMessage"
+    class="message"
+    style="margin-top:12px;"
+  ></div>
 
-    <div class="modal-box">
+</div>
 
-      <div class="modal-icon">
-        ✅
-      </div>
 
-      <div class="modal-title">
-        訂購成功
-      </div>
+<div id="searchResult"></div>
 
-      <div
-        id="successText"
-        class="modal-text"
-      ></div>
 
-      <button
-        class="modal-btn"
-        type="button"
-        onclick="closeSuccess()"
-      >
-        完成
-      </button>
+</div>
 
+
+</div>
+
+
+<!-- 下方固定總計 -->
+<div
+  id="stickySummary"
+  class="sticky-summary"
+>
+
+<div class="sticky-inner">
+
+  <div class="summary-text">
+
+    <div class="summary-small">
+      共
+      <span id="totalQty">0</span>
+      件
+    </div>
+
+    <div class="summary-amount">
+      NT$
+      <span id="totalAmount">0</span>
     </div>
 
   </div>
 
 
-  <script>
+  <button
+    id="submitButton"
+    class="btn btn-primary submit-small"
+    onclick="submitOrder()"
+  >
+    送出訂單
+  </button>
 
-    /************************************************
-     * ★ Apps Script API
-     ************************************************/
-    const API_URL =
-  'https://script.google.com/macros/s/AKfycbxXxxubeSfO9Z2ho5I0q9ahntEz1jfmoBjhtwfQbMAaCaLVz32VQax_Ajhw048KUIEJ/exec';
+</div>
 
+</div>
 
-    let products = [];
 
-    let quantities = {};
+<!-- 成功視窗 -->
+<div
+  id="successModal"
+  class="modal"
+>
 
+<div class="modal-box">
 
-    /************************************************
-     * ★ JSONP API
-     * GitHub Pages → Apps Script
-     ************************************************/
-    function api(
-      action,
-      params = {}
-    ){
+  <div class="success-icon">
+    ✓
+  </div>
 
-      return new Promise(
-        function(resolve, reject){
+  <div class="modal-title">
+    訂購成功
+  </div>
 
-          const callbackName =
-            '__bakery_cb_' +
-            Date.now() +
-            '_' +
-            Math.floor(
-              Math.random() * 1000000
-            );
+  <div
+    id="successContent"
+    class="modal-content"
+  ></div>
 
+  <button
+    class="btn btn-primary"
+    onclick="closeSuccessModal()"
+  >
+    完成
+  </button>
 
-          const script =
-            document.createElement(
-              'script'
-            );
+</div>
 
+</div>
 
-          let finished =
-            false;
 
+<script>
 
-          const timer =
-            setTimeout(
-              function(){
 
-                if(finished){
-                  return;
-                }
+/*************************************************
+ * ★★★ 這一行一定要改 ★★★
+ *
+ * 把下面網址換成你的 Apps Script /exec 網址
+ *************************************************/
+const API_URL =
+  'https://script.google.com/macros/s/AKfycbw6NUh5L9cB5OhWmAxAfHBAjlGAmBw-3FcHu5E7ZpL04eAFQ37IfB8PIxkEqJi8B2r5/exec';
 
-                finished = true;
 
-                cleanup();
+/*************************************************
+ * 系統資料
+ *************************************************/
+let products = [];
 
-                reject(
-                  new Error(
-                    '連線逾時，請稍後再試'
-                  )
-                );
+let customers = [];
 
-              },
-              25000
-            );
+let openDates = [];
 
+let quantities = {};
 
-          function cleanup(){
 
-            clearTimeout(
-              timer
-            );
+/*************************************************
+ * JSONP 編號
+ *************************************************/
+let jsonpCounter = 0;
 
 
-            if(
-              script.parentNode
-            ){
+/*************************************************
+ * 啟動
+ *************************************************/
+window.addEventListener(
+  'load',
+  function() {
 
-              script.parentNode.removeChild(
-                script
-              );
-            }
+    loadInitialData();
 
+  }
+);
 
-            try{
 
-              delete window[
-                callbackName
-              ];
+/*************************************************
+ * JSONP
+ *************************************************/
+function jsonpRequest(
+  params,
+  success,
+  failure
+) {
 
-            }
-            catch(error){
+  jsonpCounter++;
 
-              window[
-                callbackName
-              ] = undefined;
-            }
-          }
 
+  const callbackName =
+    '__bakeryCallback_' +
+    Date.now() +
+    '_' +
+    jsonpCounter;
 
-          window[
-            callbackName
-          ] =
-            function(result){
 
-              if(finished){
-                return;
-              }
-
-              finished = true;
-
-              cleanup();
-
-
-              if(
-                !result
-              ){
-
-                reject(
-                  new Error(
-                    '伺服器沒有回傳資料'
-                  )
-                );
-
-                return;
-              }
-
-
-              if(
-                result.success === false
-              ){
-
-                reject(
-                  new Error(
-                    result.message ||
-                    '系統發生錯誤'
-                  )
-                );
-
-                return;
-              }
-
-
-              resolve(
-                result
-              );
-            };
-
-
-          const query =
-            new URLSearchParams();
-
-
-          query.set(
-            'action',
-            action
-          );
-
-
-          query.set(
-            'callback',
-            callbackName
-          );
-
-
-          query.set(
-            '_',
-            Date.now()
-          );
-
-
-          Object.keys(
-            params
-          ).forEach(
-            function(key){
-
-              const value =
-                params[
-                  key
-                ];
-
-
-              if(
-                value === undefined ||
-                value === null
-              ){
-
-                return;
-              }
-
-
-              query.set(
-                key,
-                String(
-                  value
-                )
-              );
-            }
-          );
-
-
-          script.onerror =
-            function(){
-
-              if(finished){
-                return;
-              }
-
-              finished = true;
-
-              cleanup();
-
-
-              reject(
-                new Error(
-                  '目前無法連線到訂單系統，請稍後再試'
-                )
-              );
-            };
-
-
-          script.src =
-            API_URL +
-            '?' +
-            query.toString();
-
-
-          document.body.appendChild(
-            script
-          );
-        }
-      );
-    }
-
-
-    /************************************************
-     * ★ 啟動
-     ************************************************/
-    document.addEventListener(
-      'DOMContentLoaded',
-      function(){
-
-        loadInitialData();
-
-      }
+  const script =
+    document.createElement(
+      'script'
     );
 
 
-    /************************************************
-     * ★ 初始資料
-     ************************************************/
-    async function loadInitialData(){
+  let finished =
+    false;
 
-      showLoading(
+
+  const timer =
+    setTimeout(
+      function() {
+
+        cleanup();
+
+
+        if (failure) {
+
+          failure(
+            new Error(
+              '目前無法連線到訂單系統，請稍後再試。'
+            )
+          );
+
+        }
+
+      },
+      20000
+    );
+
+
+  function cleanup() {
+
+    if (finished) {
+
+      return;
+
+    }
+
+
+    finished =
+      true;
+
+
+    clearTimeout(
+      timer
+    );
+
+
+    try {
+
+      delete window[
+        callbackName
+      ];
+
+    }
+
+    catch (error) {
+
+      window[
+        callbackName
+      ] = undefined;
+
+    }
+
+
+    if (
+      script.parentNode
+    ) {
+
+      script.parentNode.removeChild(
+        script
+      );
+
+    }
+
+  }
+
+
+  window[
+    callbackName
+  ] =
+    function(data) {
+
+      cleanup();
+
+
+      if (success) {
+
+        success(
+          data
+        );
+
+      }
+
+    };
+
+
+  const query =
+    new URLSearchParams();
+
+
+  Object.keys(
+    params
+  ).forEach(
+    function(key) {
+
+      query.append(
+        key,
+        params[key]
+      );
+
+    }
+  );
+
+
+  query.append(
+    'callback',
+    callbackName
+  );
+
+
+  script.src =
+    API_URL +
+    '?' +
+    query.toString();
+
+
+  script.onerror =
+    function() {
+
+      cleanup();
+
+
+      if (failure) {
+
+        failure(
+          new Error(
+            '目前無法連線到訂單系統，請稍後再試。'
+          )
+        );
+
+      }
+
+    };
+
+
+  document.body.appendChild(
+    script
+  );
+
+}
+
+
+/*************************************************
+ * 初始化
+ *************************************************/
+function loadInitialData() {
+
+  if (
+    !API_URL ||
+    API_URL.indexOf(
+      'script.google.com'
+    ) === -1
+  ) {
+
+    showMessage(
+      'orderMessage',
+      '請先在 index.html 設定 Apps Script /exec 網址。',
+      'error'
+    );
+
+
+    document.getElementById(
+      'productList'
+    ).innerHTML =
+      '<div class="empty-result">' +
+      '尚未設定 Apps Script 網址' +
+      '</div>';
+
+
+    return;
+
+  }
+
+
+  jsonpRequest(
+
+    {
+      action:
+        'initial'
+    },
+
+    function(data) {
+
+      if (
+        !data ||
+        data.success === false
+      ) {
+
+        showMessage(
+          'orderMessage',
+          data && data.message
+            ? data.message
+            : '資料載入失敗',
+          'error'
+        );
+
+        return;
+
+      }
+
+
+      products =
+        data.products || [];
+
+
+      customers =
+        data.customers || [];
+
+
+      openDates =
+        data.dates || [];
+
+
+      renderCustomers();
+
+      renderDates();
+
+      renderProducts();
+
+      updateTotal();
+
+    },
+
+    function(error) {
+
+      showMessage(
+        'orderMessage',
+        error.message,
+        'error'
+      );
+
+
+      document.getElementById(
+        'productList'
+      ).innerHTML =
+        '<div class="empty-result">' +
+        '資料載入失敗' +
+        '</div>';
+
+    }
+
+  );
+
+}
+
+
+/*************************************************
+ * 訂購人
+ *************************************************/
+function renderCustomers() {
+
+  const orderSelect =
+    document.getElementById(
+      'customerName'
+    );
+
+
+  const searchSelect =
+    document.getElementById(
+      'searchName'
+    );
+
+
+  orderSelect.innerHTML =
+    '<option value="">請選擇訂購人</option>';
+
+
+  searchSelect.innerHTML =
+    '<option value="">全部訂購人</option>';
+
+
+  customers.forEach(
+    function(customer) {
+
+      const option1 =
+        document.createElement(
+          'option'
+        );
+
+
+      option1.value =
+        customer;
+
+
+      option1.textContent =
+        customer;
+
+
+      orderSelect.appendChild(
+        option1
+      );
+
+
+      const option2 =
+        document.createElement(
+          'option'
+        );
+
+
+      option2.value =
+        customer;
+
+
+      option2.textContent =
+        customer;
+
+
+      searchSelect.appendChild(
+        option2
+      );
+
+    }
+  );
+
+}
+
+
+/*************************************************
+ * 日期
+ *************************************************/
+function renderDates() {
+
+  const orderSelect =
+    document.getElementById(
+      'orderDate'
+    );
+
+
+  const searchSelect =
+    document.getElementById(
+      'searchDate'
+    );
+
+
+  orderSelect.innerHTML = '';
+
+
+  searchSelect.innerHTML =
+    '<option value="">全部日期</option>';
+
+
+  if (
+    openDates.length === 0
+  ) {
+
+    orderSelect.innerHTML =
+      '<option value="">' +
+      '目前尚未開放訂購日期' +
+      '</option>';
+
+
+    return;
+
+  }
+
+
+  const first =
+    document.createElement(
+      'option'
+    );
+
+
+  first.value = '';
+
+
+  first.textContent =
+    '請選擇訂購日期';
+
+
+  orderSelect.appendChild(
+    first
+  );
+
+
+  openDates.forEach(
+    function(date) {
+
+      const label =
+        formatDateLabel(
+          date
+        );
+
+
+      const option1 =
+        document.createElement(
+          'option'
+        );
+
+
+      option1.value =
+        date;
+
+
+      option1.textContent =
+        label;
+
+
+      orderSelect.appendChild(
+        option1
+      );
+
+
+      const option2 =
+        document.createElement(
+          'option'
+        );
+
+
+      option2.value =
+        date;
+
+
+      option2.textContent =
+        label;
+
+
+      searchSelect.appendChild(
+        option2
+      );
+
+    }
+  );
+
+}
+
+
+/*************************************************
+ * 商品
+ *************************************************/
+function renderProducts() {
+
+  const container =
+    document.getElementById(
+      'productList'
+    );
+
+
+  container.innerHTML = '';
+
+
+  if (
+    products.length === 0
+  ) {
+
+    container.innerHTML =
+      '<div class="empty-result">' +
+      '目前沒有商品' +
+      '</div>';
+
+
+    return;
+
+  }
+
+
+  products.forEach(
+    function(product) {
+
+      quantities[
+        product.name
+      ] = 0;
+
+
+      const item =
+        document.createElement(
+          'div'
+        );
+
+
+      item.className =
+        'product-item';
+
+
+      const info =
+        document.createElement(
+          'div'
+        );
+
+
+      info.className =
+        'product-info';
+
+
+      const name =
+        document.createElement(
+          'div'
+        );
+
+
+      name.className =
+        'product-name';
+
+
+      name.textContent =
+        product.name;
+
+
+      const price =
+        document.createElement(
+          'div'
+        );
+
+
+      price.className =
+        'product-price';
+
+
+      price.textContent =
+        'NT$ ' +
+        formatMoney(
+          product.price
+        );
+
+
+      info.appendChild(
+        name
+      );
+
+
+      info.appendChild(
+        price
+      );
+
+
+      const qtyBox =
+        document.createElement(
+          'div'
+        );
+
+
+      qtyBox.className =
+        'qty-box';
+
+
+      const minus =
+        document.createElement(
+          'button'
+        );
+
+
+      minus.type =
+        'button';
+
+
+      minus.className =
+        'qty-btn';
+
+
+      minus.textContent =
+        '−';
+
+
+      minus.onclick =
+        function() {
+
+          changeQty(
+            product.name,
+            -1
+          );
+
+        };
+
+
+      const qty =
+        document.createElement(
+          'div'
+        );
+
+
+      qty.className =
+        'qty-value';
+
+
+      qty.id =
+        getQtyId(
+          product.name
+        );
+
+
+      qty.textContent =
+        '0';
+
+
+      const plus =
+        document.createElement(
+          'button'
+        );
+
+
+      plus.type =
+        'button';
+
+
+      plus.className =
+        'qty-btn';
+
+
+      plus.textContent =
+        '+';
+
+
+      plus.onclick =
+        function() {
+
+          changeQty(
+            product.name,
+            1
+          );
+
+        };
+
+
+      qtyBox.appendChild(
+        minus
+      );
+
+
+      qtyBox.appendChild(
+        qty
+      );
+
+
+      qtyBox.appendChild(
+        plus
+      );
+
+
+      item.appendChild(
+        info
+      );
+
+
+      item.appendChild(
+        qtyBox
+      );
+
+
+      container.appendChild(
+        item
+      );
+
+    }
+  );
+
+}
+
+
+/*************************************************
+ * 數量
+ *************************************************/
+function changeQty(
+  productName,
+  amount
+) {
+
+  let current =
+    Number(
+      quantities[
+        productName
+      ] || 0
+    );
+
+
+  current +=
+    amount;
+
+
+  if (
+    current < 0
+  ) {
+
+    current = 0;
+
+  }
+
+
+  quantities[
+    productName
+  ] =
+    current;
+
+
+  const element =
+    document.getElementById(
+      getQtyId(
+        productName
+      )
+    );
+
+
+  if (element) {
+
+    element.textContent =
+      current;
+
+  }
+
+
+  updateTotal();
+
+}
+
+
+/*************************************************
+ * 商品 ID
+ *************************************************/
+function getQtyId(
+  name
+) {
+
+  let hash = 0;
+
+
+  for (
+    let i = 0;
+    i < name.length;
+    i++
+  ) {
+
+    hash =
+      ((hash << 5) - hash) +
+      name.charCodeAt(i);
+
+
+    hash =
+      hash & hash;
+
+  }
+
+
+  return (
+    'qty_' +
+    Math.abs(
+      hash
+    )
+  );
+
+}
+
+
+/*************************************************
+ * 下單總計
+ *************************************************/
+function updateTotal() {
+
+  let totalQty = 0;
+
+  let totalAmount = 0;
+
+
+  products.forEach(
+    function(product) {
+
+      const qty =
+        Number(
+          quantities[
+            product.name
+          ] || 0
+        );
+
+
+      totalQty +=
+        qty;
+
+
+      totalAmount +=
+        qty *
+        Number(
+          product.price
+        );
+
+    }
+  );
+
+
+  document.getElementById(
+    'totalQty'
+  ).textContent =
+    totalQty;
+
+
+  document.getElementById(
+    'totalAmount'
+  ).textContent =
+    formatMoney(
+      totalAmount
+    );
+
+}
+
+
+/*************************************************
+ * 送出
+ *************************************************/
+function submitOrder() {
+
+  hideMessage(
+    'orderMessage'
+  );
+
+
+  const customerName =
+    document.getElementById(
+      'customerName'
+    ).value;
+
+
+  const orderDate =
+    document.getElementById(
+      'orderDate'
+    ).value;
+
+
+  const note =
+    document.getElementById(
+      'note'
+    ).value.trim();
+
+
+  if (!customerName) {
+
+    showMessage(
+      'orderMessage',
+      '請選擇訂購人',
+      'error'
+    );
+
+
+    return;
+
+  }
+
+
+  if (!orderDate) {
+
+    showMessage(
+      'orderMessage',
+      '請選擇訂購日期',
+      'error'
+    );
+
+
+    return;
+
+  }
+
+
+  let totalQty = 0;
+
+
+  products.forEach(
+    function(product) {
+
+      totalQty +=
+        Number(
+          quantities[
+            product.name
+          ] || 0
+        );
+
+    }
+  );
+
+
+  if (
+    totalQty <= 0
+  ) {
+
+    showMessage(
+      'orderMessage',
+      '請至少選擇一項商品',
+      'error'
+    );
+
+
+    return;
+
+  }
+
+
+  const order = {
+
+    customerName:
+      customerName,
+
+    orderDate:
+      orderDate,
+
+    note:
+      note,
+
+    items:
+      quantities
+
+  };
+
+
+  const button =
+    document.getElementById(
+      'submitButton'
+    );
+
+
+  button.disabled =
+    true;
+
+
+  button.textContent =
+    '送出中...';
+
+
+  jsonpRequest(
+
+    {
+      action:
+        'submit',
+
+      order:
+        JSON.stringify(
+          order
+        )
+    },
+
+    function(result) {
+
+      button.disabled =
+        false;
+
+
+      button.textContent =
+        '送出訂單';
+
+
+      if (
+        !result ||
+        result.success === false
+      ) {
+
+        showMessage(
+          'orderMessage',
+          result && result.message
+            ? result.message
+            : '訂單送出失敗',
+          'error'
+        );
+
+
+        return;
+
+      }
+
+
+      showSuccessModal(
+        result
+      );
+
+
+      resetOrder(
         true
       );
 
+    },
 
-      hideSystemMessage();
+    function(error) {
 
-
-      try{
-
-        const data =
-          await api(
-            'initial'
-          );
+      button.disabled =
+        false;
 
 
-        products =
-          Array.isArray(
-            data.products
-          )
-            ? data.products
-            : [];
+      button.textContent =
+        '送出訂單';
 
 
-        fillCustomers(
-          Array.isArray(
-            data.customers
-          )
-            ? data.customers
-            : []
-        );
-
-
-        fillDates(
-          Array.isArray(
-            data.dates
-          )
-            ? data.dates
-            : []
-        );
-
-
-        renderProducts();
-
-
-        updateTotal();
-
-
-        if(
-          !data.dates ||
-          data.dates.length === 0
-        ){
-
-          showSystemMessage(
-            '目前沒有可訂購日期，請聯絡管理人員更新「日期設定」。',
-            false
-          );
-        }
-
-      }
-      catch(error){
-
-        showSystemMessage(
-          '目前無法連線到訂單系統：' +
-          error.message,
-          true
-        );
-
-
-        alert(
-          '目前無法連線到訂單系統。\n\n' +
-          error.message
-        );
-
-      }
-      finally{
-
-        showLoading(
-          false
-        );
-      }
-    }
-
-
-    /************************************************
-     * ★ 填訂購人
-     ************************************************/
-    function fillCustomers(
-      customers
-    ){
-
-      const customer =
-        document.getElementById(
-          'customer'
-        );
-
-
-      const searchCustomer =
-        document.getElementById(
-          'searchCustomer'
-        );
-
-
-      customer.innerHTML =
-        '<option value="">請選擇訂購人</option>';
-
-
-      searchCustomer.innerHTML =
-        '<option value="">請選擇訂購人</option>';
-
-
-      customers.forEach(
-        function(name){
-
-          customer.add(
-            new Option(
-              name,
-              name
-            )
-          );
-
-
-          searchCustomer.add(
-            new Option(
-              name,
-              name
-            )
-          );
-        }
+      showMessage(
+        'orderMessage',
+        error.message,
+        'error'
       );
+
     }
 
+  );
 
-    /************************************************
-     * ★ 填日期
-     ************************************************/
-    function fillDates(
-      dates
-    ){
+}
 
-      const orderDate =
+
+/*************************************************
+ * 成功視窗
+ *************************************************/
+function showSuccessModal(
+  result
+) {
+
+  document.getElementById(
+    'successContent'
+  ).innerHTML =
+
+    '訂購人：<strong>' +
+    escapeHtml(
+      result.customerName
+    ) +
+    '</strong><br>' +
+
+    '訂購日期：<strong>' +
+    escapeHtml(
+      formatDateLabel(
+        result.orderDate
+      )
+    ) +
+    '</strong><br>' +
+
+    '總數量：<strong>' +
+    Number(
+      result.totalQty || 0
+    ) +
+    ' 件</strong><br><br>' +
+
+    '訂單金額<br>' +
+
+    '<span class="modal-amount">' +
+    'NT$ ' +
+    formatMoney(
+      result.totalAmount
+    ) +
+    '</span>';
+
+
+  document.getElementById(
+    'successModal'
+  ).classList.add(
+    'show'
+  );
+
+}
+
+
+/*************************************************
+ * 關閉成功
+ *************************************************/
+function closeSuccessModal() {
+
+  document.getElementById(
+    'successModal'
+  ).classList.remove(
+    'show'
+  );
+
+}
+
+
+/*************************************************
+ * 清除
+ *************************************************/
+function resetOrder(
+  keepCustomer
+) {
+
+  const oldCustomer =
+    document.getElementById(
+      'customerName'
+    ).value;
+
+
+  products.forEach(
+    function(product) {
+
+      quantities[
+        product.name
+      ] = 0;
+
+
+      const element =
         document.getElementById(
-          'orderDate'
-        );
-
-
-      const searchDate =
-        document.getElementById(
-          'searchDate'
-        );
-
-
-      orderDate.innerHTML =
-        '<option value="">請選擇訂購日期</option>';
-
-
-      searchDate.innerHTML =
-        '<option value="">全部日期</option>';
-
-
-      dates.forEach(
-        function(date){
-
-          orderDate.add(
-            new Option(
-              date,
-              date
-            )
-          );
-
-
-          searchDate.add(
-            new Option(
-              date,
-              date
-            )
-          );
-        }
-      );
-    }
-
-
-    /************************************************
-     * ★ 商品
-     ************************************************/
-    function renderProducts(){
-
-      const box =
-        document.getElementById(
-          'products'
-        );
-
-
-      box.innerHTML =
-        '';
-
-
-      quantities =
-        {};
-
-
-      products.forEach(
-        function(
-          product,
-          index
-        ){
-
-          quantities[
+          getQtyId(
             product.name
-          ] = 0;
+          )
+        );
+
+
+      if (element) {
+
+        element.textContent =
+          '0';
+
+      }
+
+    }
+  );
+
+
+  document.getElementById(
+    'orderDate'
+  ).value = '';
+
+
+  document.getElementById(
+    'note'
+  ).value = '';
+
+
+  document.getElementById(
+    'customerName'
+  ).value =
+    keepCustomer
+      ? oldCustomer
+      : '';
+
+
+  hideMessage(
+    'orderMessage'
+  );
+
+
+  updateTotal();
+
+}
+
+
+/*************************************************
+ * 查詢
+ *************************************************/
+function searchOrder() {
+
+  hideMessage(
+    'searchMessage'
+  );
+
+
+  const name =
+    document.getElementById(
+      'searchName'
+    ).value;
+
+
+  const date =
+    document.getElementById(
+      'searchDate'
+    ).value;
+
+
+  const button =
+    document.getElementById(
+      'searchButton'
+    );
+
+
+  button.disabled =
+    true;
+
+
+  button.textContent =
+    '查詢中...';
+
+
+  document.getElementById(
+    'searchResult'
+  ).innerHTML =
+    '<div class="loading">' +
+    '正在查詢訂單...' +
+    '</div>';
+
+
+  jsonpRequest(
+
+    {
+      action:
+        'search',
+
+      name:
+        name,
+
+      date:
+        date
+    },
+
+    function(data) {
+
+      button.disabled =
+        false;
+
+
+      button.textContent =
+        '查詢訂單';
+
+
+      if (
+        !data ||
+        data.success === false
+      ) {
+
+        document.getElementById(
+          'searchResult'
+        ).innerHTML = '';
+
+
+        showMessage(
+          'searchMessage',
+          data && data.message
+            ? data.message
+            : '查詢失敗',
+          'error'
+        );
+
+
+        return;
+
+      }
+
+
+      renderSearchResults(
+        data.orders || []
+      );
+
+    },
+
+    function(error) {
+
+      button.disabled =
+        false;
+
+
+      button.textContent =
+        '查詢訂單';
+
+
+      document.getElementById(
+        'searchResult'
+      ).innerHTML = '';
+
+
+      showMessage(
+        'searchMessage',
+        error.message,
+        'error'
+      );
+
+    }
+
+  );
+
+}
+
+
+/*************************************************
+ * 查詢結果
+ *************************************************/
+function renderSearchResults(
+  results
+) {
+
+  const container =
+    document.getElementById(
+      'searchResult'
+    );
+
+
+  container.innerHTML = '';
+
+
+  if (
+    results.length === 0
+  ) {
+
+    container.innerHTML =
+      '<div class="card empty-result">' +
+      '查不到符合條件的訂單' +
+      '</div>';
+
+
+    return;
+
+  }
+
+
+  const summary =
+    document.createElement(
+      'div'
+    );
+
+
+  summary.className =
+    'search-summary';
+
+
+  summary.textContent =
+    '共查到 ' +
+    results.length +
+    ' 筆訂單';
+
+
+  container.appendChild(
+    summary
+  );
+
+
+  const productTotals = {};
+
+
+  results.forEach(
+    function(order) {
+
+      const card =
+        document.createElement(
+          'div'
+        );
+
+
+      card.className =
+        'order-result-card';
+
+
+      /*******************************************
+       * 訂購人
+       *******************************************/
+      const person =
+        document.createElement(
+          'div'
+        );
+
+
+      person.className =
+        'order-person';
+
+
+      person.textContent =
+        order['訂購人'] || '';
+
+
+      card.appendChild(
+        person
+      );
+
+
+      /*******************************************
+       * 日期、時間
+       *******************************************/
+      const meta =
+        document.createElement(
+          'div'
+        );
+
+
+      meta.className =
+        'order-meta';
+
+
+      const dateDiv =
+        document.createElement(
+          'div'
+        );
+
+
+      dateDiv.className =
+        'order-date';
+
+
+      dateDiv.textContent =
+        '訂購日期：' +
+        formatDateLabel(
+          order['訂購日期'] || ''
+        );
+
+
+      const timeDiv =
+        document.createElement(
+          'div'
+        );
+
+
+      timeDiv.className =
+        'order-time';
+
+
+      timeDiv.textContent =
+        order['時間戳記'] || '';
+
+
+      meta.appendChild(
+        dateDiv
+      );
+
+
+      meta.appendChild(
+        timeDiv
+      );
+
+
+      card.appendChild(
+        meta
+      );
+
+
+      /*******************************************
+       * 商品表頭
+       *******************************************/
+      const header =
+        document.createElement(
+          'div'
+        );
+
+
+      header.className =
+        'item-header';
+
+
+      header.innerHTML =
+        '<div>商品</div>' +
+        '<div class="item-number">數量</div>' +
+        '<div class="item-number">單價</div>' +
+        '<div class="item-number">小計</div>';
+
+
+      card.appendChild(
+        header
+      );
+
+
+      /*******************************************
+       * 商品
+       *******************************************/
+      const items =
+        order.items || [];
+
+
+      items.forEach(
+        function(item) {
+
+          if (
+            !productTotals[
+              item.name
+            ]
+          ) {
+
+            productTotals[
+              item.name
+            ] = 0;
+
+          }
+
+
+          productTotals[
+            item.name
+          ] +=
+            Number(
+              item.qty || 0
+            );
 
 
           const row =
@@ -1367,1042 +2306,453 @@
 
 
           row.className =
-            'product';
+            'order-product';
 
 
-          const info =
+          const nameDiv =
             document.createElement(
               'div'
             );
 
 
-          info.className =
-            'product-info';
+          nameDiv.className =
+            'item-name';
 
 
-          const name =
+          nameDiv.textContent =
+            item.name;
+
+
+          const qtyDiv =
             document.createElement(
               'div'
             );
 
 
-          name.className =
-            'product-name';
+          qtyDiv.className =
+            'item-number';
 
 
-          name.textContent =
-            product.name;
+          qtyDiv.textContent =
+            item.qty;
 
 
-          const price =
+          const priceDiv =
             document.createElement(
               'div'
             );
 
 
-          price.className =
-            'product-price';
+          priceDiv.className =
+            'item-number';
 
 
-          price.textContent =
-            'NT$ ' +
-            money(
-              product.price
+          priceDiv.textContent =
+            '$' +
+            formatMoney(
+              item.price
             );
 
 
-          info.appendChild(
-            name
-          );
-
-
-          info.appendChild(
-            price
-          );
-
-
-          const qtyBox =
+          const subtotalDiv =
             document.createElement(
               'div'
             );
 
 
-          qtyBox.className =
-            'qty-box';
+          subtotalDiv.className =
+            'item-number';
 
 
-          const minus =
-            document.createElement(
-              'button'
+          subtotalDiv.textContent =
+            '$' +
+            formatMoney(
+              item.subtotal
             );
 
 
-          minus.type =
-            'button';
-
-
-          minus.className =
-            'qty-btn';
-
-
-          minus.textContent =
-            '−';
-
-
-          minus.setAttribute(
-            'aria-label',
-            product.name +
-            ' 減少'
-          );
-
-
-          minus.onclick =
-            function(){
-
-              changeQty(
-                product.name,
-                -1
-              );
-            };
-
-
-          const number =
-            document.createElement(
-              'div'
-            );
-
-
-          number.className =
-            'qty-number';
-
-
-          number.id =
-            'qty-' +
-            index;
-
-
-          number.textContent =
-            '0';
-
-
-          const plus =
-            document.createElement(
-              'button'
-            );
-
-
-          plus.type =
-            'button';
-
-
-          plus.className =
-            'qty-btn';
-
-
-          plus.textContent =
-            '+';
-
-
-          plus.setAttribute(
-            'aria-label',
-            product.name +
-            ' 增加'
-          );
-
-
-          plus.onclick =
-            function(){
-
-              changeQty(
-                product.name,
-                1
-              );
-            };
-
-
-          qtyBox.appendChild(
-            minus
-          );
-
-
-          qtyBox.appendChild(
-            number
-          );
-
-
-          qtyBox.appendChild(
-            plus
+          row.appendChild(
+            nameDiv
           );
 
 
           row.appendChild(
-            info
+            qtyDiv
           );
 
 
           row.appendChild(
-            qtyBox
+            priceDiv
           );
 
 
-          box.appendChild(
+          row.appendChild(
+            subtotalDiv
+          );
+
+
+          card.appendChild(
             row
           );
+
         }
       );
+
+
+      /*******************************************
+       * 備註
+       *******************************************/
+      if (
+        order['備註']
+      ) {
+
+        const note =
+          document.createElement(
+            'div'
+          );
+
+
+        note.className =
+          'order-note';
+
+
+        note.textContent =
+          '備註：' +
+          order['備註'];
+
+
+        card.appendChild(
+          note
+        );
+
+      }
+
+
+      container.appendChild(
+        card
+      );
+
     }
+  );
 
 
-    /************************************************
-     * ★ 改變數量
-     ************************************************/
-    function changeQty(
-      name,
-      amount
-    ){
+  /*********************************************
+   * 最後品項總數量
+   *********************************************/
+  const totalCard =
+    document.createElement(
+      'div'
+    );
 
-      let qty =
+
+  totalCard.className =
+    'product-total-card';
+
+
+  const title =
+    document.createElement(
+      'div'
+    );
+
+
+  title.className =
+    'product-total-title';
+
+
+  title.textContent =
+    '品項總數量';
+
+
+  totalCard.appendChild(
+    title
+  );
+
+
+  const totalHeader =
+    document.createElement(
+      'div'
+    );
+
+
+  totalHeader.className =
+    'product-total-header';
+
+
+  totalHeader.innerHTML =
+    '<div>品項</div>' +
+    '<div>總數量</div>';
+
+
+  totalCard.appendChild(
+    totalHeader
+  );
+
+
+  products.forEach(
+    function(product) {
+
+      const qty =
         Number(
-          quantities[
-            name
+          productTotals[
+            product.name
           ] || 0
         );
 
 
-      qty +=
-        amount;
+      if (
+        qty <= 0
+      ) {
 
+        return;
 
-      if(
-        qty < 0
-      ){
-
-        qty = 0;
       }
 
 
-      if(
-        qty > 999
-      ){
-
-        qty = 999;
-      }
+      const row =
+        document.createElement(
+          'div'
+        );
 
 
-      quantities[
-        name
-      ] =
+      row.className =
+        'product-total-row';
+
+
+      const name =
+        document.createElement(
+          'div'
+        );
+
+
+      name.textContent =
+        product.name;
+
+
+      const totalQty =
+        document.createElement(
+          'div'
+        );
+
+
+      totalQty.className =
+        'product-total-qty';
+
+
+      totalQty.textContent =
         qty;
 
 
-      const index =
-        products.findIndex(
-          function(product){
-
-            return (
-              product.name ===
-              name
-            );
-          }
-        );
-
-
-      if(
-        index >= 0
-      ){
-
-        const element =
-          document.getElementById(
-            'qty-' +
-            index
-          );
-
-
-        if(
-          element
-        ){
-
-          element.textContent =
-            qty;
-        }
-      }
-
-
-      updateTotal();
-    }
-
-
-    /************************************************
-     * ★ 更新總計
-     ************************************************/
-    function updateTotal(){
-
-      let totalQty =
-        0;
-
-
-      let totalAmount =
-        0;
-
-
-      products.forEach(
-        function(product){
-
-          const qty =
-            Number(
-              quantities[
-                product.name
-              ] || 0
-            );
-
-
-          totalQty +=
-            qty;
-
-
-          totalAmount +=
-            qty *
-            Number(
-              product.price || 0
-            );
-        }
+      row.appendChild(
+        name
       );
 
 
-      document
-        .getElementById(
-          'totalCount'
-        )
-        .textContent =
-          '共 ' +
-          totalQty +
-          ' 件';
-
-
-      document
-        .getElementById(
-          'totalMoney'
-        )
-        .textContent =
-          'NT$ ' +
-          money(
-            totalAmount
-          );
-    }
-
-
-    /************************************************
-     * ★ 清除全部
-     ************************************************/
-    function clearAll(){
-
-      products.forEach(
-        function(
-          product,
-          index
-        ){
-
-          quantities[
-            product.name
-          ] = 0;
-
-
-          const element =
-            document.getElementById(
-              'qty-' +
-              index
-            );
-
-
-          if(
-            element
-          ){
-
-            element.textContent =
-              '0';
-          }
-        }
+      row.appendChild(
+        totalQty
       );
 
 
-      updateTotal();
-    }
-
-
-    /************************************************
-     * ★ 下單
-     ************************************************/
-    async function submitOrderNow(){
-
-      const customer =
-        document
-          .getElementById(
-            'customer'
-          )
-          .value;
-
-
-      const orderDate =
-        document
-          .getElementById(
-            'orderDate'
-          )
-          .value;
-
-
-      const note =
-        document
-          .getElementById(
-            'note'
-          )
-          .value
-          .trim();
-
-
-      if(
-        !customer
-      ){
-
-        alert(
-          '請選擇訂購人'
-        );
-
-        return;
-      }
-
-
-      if(
-        !orderDate
-      ){
-
-        alert(
-          '請選擇訂購日期'
-        );
-
-        return;
-      }
-
-
-      let totalQty =
-        0;
-
-
-      products.forEach(
-        function(product){
-
-          totalQty +=
-            Number(
-              quantities[
-                product.name
-              ] || 0
-            );
-        }
+      totalCard.appendChild(
+        row
       );
 
-
-      if(
-        totalQty <= 0
-      ){
-
-        alert(
-          '請至少選擇一項商品'
-        );
-
-        return;
-      }
-
-
-      const submitBtn =
-        document.getElementById(
-          'submitBtn'
-        );
-
-
-      submitBtn.disabled =
-        true;
-
-
-      submitBtn.textContent =
-        '送出中...';
-
-
-      showLoading(
-        true
-      );
-
-
-      try{
-
-        const params = {
-          customer:
-            customer,
-
-          orderDate:
-            orderDate,
-
-          note:
-            note,
-
-          requestId:
-            createRequestId()
-        };
-
-
-        products.forEach(
-          function(
-            product,
-            index
-          ){
-
-            params[
-              'q' +
-              index
-            ] =
-              Number(
-                quantities[
-                  product.name
-                ] || 0
-              );
-          }
-        );
-
-
-        const result =
-          await api(
-            'submit',
-            params
-          );
-
-
-        document
-          .getElementById(
-            'successText'
-          )
-          .innerHTML =
-
-            '訂購人：<b>' +
-            escapeHtml(
-              result.customer
-            ) +
-            '</b><br>' +
-
-            '訂購日期：<b>' +
-            escapeHtml(
-              result.orderDate
-            ) +
-            '</b><br>' +
-
-            '共 <b>' +
-            Number(
-              result.totalQty || 0
-            ) +
-            '</b> 件<br>' +
-
-            '總金額：<b>NT$ ' +
-            money(
-              result.totalAmount
-            ) +
-            '</b>';
-
-
-        document
-          .getElementById(
-            'successModal'
-          )
-          .classList.add(
-            'show'
-          );
-
-
-        clearAll();
-
-
-        document
-          .getElementById(
-            'note'
-          )
-          .value =
-            '';
-
-
-      }
-      catch(error){
-
-        alert(
-          '訂單送出失敗。\n\n' +
-          error.message
-        );
-
-      }
-      finally{
-
-        submitBtn.disabled =
-          false;
-
-
-        submitBtn.textContent =
-          '送出訂單';
-
-
-        showLoading(
-          false
-        );
-      }
     }
+  );
 
 
-    /************************************************
-     * ★ 查詢訂單
-     ************************************************/
-    async function searchOrdersNow(){
+  container.appendChild(
+    totalCard
+  );
 
-      const customer =
-        document
-          .getElementById(
-            'searchCustomer'
-          )
-          .value;
+}
 
 
-      const orderDate =
-        document
-          .getElementById(
-            'searchDate'
-          )
-          .value;
+/*************************************************
+ * 頁籤
+ *************************************************/
+function switchTab(
+  tab
+) {
 
+  const isOrder =
+    tab === 'order';
 
-      if(
-        !customer
-      ){
 
-        alert(
-          '請選擇訂購人'
-        );
+  document.getElementById(
+    'orderTab'
+  ).classList.toggle(
+    'active',
+    isOrder
+  );
 
-        return;
-      }
 
+  document.getElementById(
+    'searchTab'
+  ).classList.toggle(
+    'active',
+    !isOrder
+  );
 
-      const box =
-        document.getElementById(
-          'searchResults'
-        );
 
+  document.getElementById(
+    'orderSection'
+  ).classList.toggle(
+    'active',
+    isOrder
+  );
 
-      box.innerHTML =
-        '<div class="empty">查詢中...</div>';
 
+  document.getElementById(
+    'searchSection'
+  ).classList.toggle(
+    'active',
+    !isOrder
+  );
 
-      try{
 
-        const result =
-          await api(
-            'search',
-            {
-              customer:
-                customer,
+  document.getElementById(
+    'stickySummary'
+  ).style.display =
+    isOrder
+      ? 'block'
+      : 'none';
 
-              orderDate:
-                orderDate
-            }
-          );
+}
 
 
-        renderSearchResults(
-          Array.isArray(
-            result.orders
-          )
-            ? result.orders
-            : []
-        );
+/*************************************************
+ * 日期格式
+ *************************************************/
+function formatDateLabel(
+  value
+) {
 
-      }
-      catch(error){
+  const parts =
+    String(
+      value || ''
+    ).split('-');
 
-        box.innerHTML =
-          '<div class="empty">查詢失敗</div>';
 
+  if (
+    parts.length !== 3
+  ) {
 
-        alert(
-          '查詢失敗。\n\n' +
-          error.message
-        );
-      }
-    }
+    return value || '';
 
+  }
 
-    /************************************************
-     * ★ 顯示查詢結果
-     ************************************************/
-    function renderSearchResults(
-      results
-    ){
 
-      const box =
-        document.getElementById(
-          'searchResults'
-        );
+  return (
+    parts[0] +
+    '/' +
+    Number(parts[1]) +
+    '/' +
+    Number(parts[2])
+  );
 
+}
 
-      if(
-        !results.length
-      ){
 
-        box.innerHTML =
-          '<div class="empty">查無訂單</div>';
+/*************************************************
+ * 金額
+ *************************************************/
+function formatMoney(
+  value
+) {
 
-        return;
-      }
+  return Number(
+    value || 0
+  ).toLocaleString(
+    'zh-TW'
+  );
 
+}
 
-      box.innerHTML =
-        results
-          .map(
-            function(order){
 
-              const items =
-                Array.isArray(
-                  order.items
-                )
-                  ? order.items
-                  : [];
+/*************************************************
+ * 錯誤訊息
+ *************************************************/
+function showMessage(
+  id,
+  text,
+  type
+) {
 
+  const element =
+    document.getElementById(
+      id
+    );
 
-              const itemsHtml =
-                items
-                  .map(
-                    function(item){
 
-                      return `
-                        <div class="order-item">
+  element.className =
+    'message ' +
+    type;
 
-                          <div>
-                            ${escapeHtml(item.name)}
-                            ×
-                            ${Number(item.qty || 0)}
-                          </div>
 
-                          <div>
-                            NT$ ${money(item.amount)}
-                          </div>
+  element.textContent =
+    text;
 
-                        </div>
-                      `;
-                    }
-                  )
-                  .join(
-                    ''
-                  );
-
+}
 
-              const noteHtml =
-                order.note
-                  ? `
-                    <div class="order-note">
-                      備註：
-                      ${escapeHtml(order.note)}
-                    </div>
-                  `
-                  : '';
 
-
-              return `
-                <div class="order-card">
+function hideMessage(
+  id
+) {
 
-                  <div class="order-head">
+  const element =
+    document.getElementById(
+      id
+    );
 
-                    <div>
 
-                      <div class="order-customer">
-                        ${escapeHtml(order.customer || '')}
-                      </div>
+  element.className =
+    'message';
 
-                      <div class="order-date">
-                        ${escapeHtml(order.orderDate || '')}
-                      </div>
 
-                    </div>
-
-                    <div class="order-total">
-                      NT$ ${money(order.totalAmount)}
-                    </div>
+  element.textContent = '';
 
-                  </div>
+}
 
-                  ${itemsHtml}
-
-                  <div class="order-summary">
-                    共 ${Number(order.totalQty || 0)} 件
-                  </div>
 
-                  ${noteHtml}
+/*************************************************
+ * HTML 安全
+ *************************************************/
+function escapeHtml(
+  value
+) {
 
-                </div>
-              `;
-            }
-          )
-          .join(
-            ''
-          );
-    }
-
-
-    /************************************************
-     * ★ 切換到我要訂購
-     ************************************************/
-    function showOrder(){
-
-      document
-        .getElementById(
-          'orderPage'
-        )
-        .style.display =
-          'block';
-
-
-      document
-        .getElementById(
-          'searchPage'
-        )
-        .style.display =
-          'none';
-
-
-      document
-        .getElementById(
-          'bottomBar'
-        )
-        .style.display =
-          'block';
-
-
-      document
-        .getElementById(
-          'orderTab'
-        )
-        .classList.add(
-          'active'
-        );
-
-
-      document
-        .getElementById(
-          'searchTab'
-        )
-        .classList.remove(
-          'active'
-        );
-    }
-
-
-    /************************************************
-     * ★ 切換到查詢訂單
-     ************************************************/
-    function showSearch(){
-
-      document
-        .getElementById(
-          'orderPage'
-        )
-        .style.display =
-          'none';
-
+  return String(
+    value == null
+      ? ''
+      : value
+  )
+    .replace(
+      /&/g,
+      '&amp;'
+    )
+    .replace(
+      /</g,
+      '&lt;'
+    )
+    .replace(
+      />/g,
+      '&gt;'
+    )
+    .replace(
+      /"/g,
+      '&quot;'
+    )
+    .replace(
+      /'/g,
+      '&#039;'
+    );
 
-      document
-        .getElementById(
-          'searchPage'
-        )
-        .style.display =
-          'block';
+}
 
 
-      document
-        .getElementById(
-          'bottomBar'
-        )
-        .style.display =
-          'none';
+</script>
 
-
-      document
-        .getElementById(
-          'searchTab'
-        )
-        .classList.add(
-          'active'
-        );
-
-
-      document
-        .getElementById(
-          'orderTab'
-        )
-        .classList.remove(
-          'active'
-        );
-    }
-
-
-    /************************************************
-     * ★ 成功視窗
-     ************************************************/
-    function closeSuccess(){
-
-      document
-        .getElementById(
-          'successModal'
-        )
-        .classList.remove(
-          'show'
-        );
-    }
-
-
-    /************************************************
-     * ★ Loading
-     ************************************************/
-    function showLoading(
-      show
-    ){
-
-      document
-        .getElementById(
-          'loading'
-        )
-        .classList.toggle(
-          'show',
-          show
-        );
-    }
-
-
-    /************************************************
-     * ★ 系統訊息
-     ************************************************/
-    function showSystemMessage(
-      message,
-      isError
-    ){
-
-      const box =
-        document.getElementById(
-          'systemMessage'
-        );
-
-
-      box.textContent =
-        message;
-
-
-      box.style.display =
-        'block';
-
-
-      box.classList.toggle(
-        'error',
-        !!isError
-      );
-    }
-
-
-    function hideSystemMessage(){
-
-      const box =
-        document.getElementById(
-          'systemMessage'
-        );
-
-
-      box.style.display =
-        'none';
-
-
-      box.classList.remove(
-        'error'
-      );
-    }
-
-
-    /************************************************
-     * ★ 金額格式
-     ************************************************/
-    function money(
-      value
-    ){
-
-      return Number(
-        value || 0
-      )
-      .toLocaleString(
-        'zh-TW'
-      );
-    }
-
-
-    /************************************************
-     * ★ 防 HTML
-     ************************************************/
-    function escapeHtml(
-      text
-    ){
-
-      return String(
-        text || ''
-      )
-      .replace(
-        /&/g,
-        '&amp;'
-      )
-      .replace(
-        /</g,
-        '&lt;'
-      )
-      .replace(
-        />/g,
-        '&gt;'
-      )
-      .replace(
-        /"/g,
-        '&quot;'
-      )
-      .replace(
-        /'/g,
-        '&#039;'
-      );
-    }
-
-
-    /************************************************
-     * ★ 防重複訂單 ID
-     ************************************************/
-    function createRequestId(){
-
-      if(
-        window.crypto &&
-        typeof window.crypto.randomUUID ===
-        'function'
-      ){
-
-        return window.crypto.randomUUID();
-      }
-
-
-      return (
-        Date.now() +
-        '_' +
-        Math.random()
-          .toString(
-            36
-          )
-          .substring(
-            2,
-            12
-          )
-      );
-    }
-
-  </script>
 
 </body>
+
 </html>
